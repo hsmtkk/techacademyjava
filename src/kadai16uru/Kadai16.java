@@ -9,13 +9,12 @@ public class Kadai16 {
 		judgeLeapYear(100);
 		judgeLeapYear(2000);
 	}
-	
+
 	private static void judgeLeapYear(int year) {
-		if((year % 400 == 0) || (year % 100 != 0 && year % 4 == 0)) {
+		if ((year % 400 == 0) || (year % 100 != 0 && year % 4 == 0)) {
 			System.out.println(year + "年はうるう年です");
-		}
-		else {
+		} else {
 			System.out.println(year + "年は平年です");
-		}		
+		}
 	}
 }
