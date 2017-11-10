@@ -1,4 +1,4 @@
-package kadai10;
+package kadai10int;
 
 public class Kadai10 {
 

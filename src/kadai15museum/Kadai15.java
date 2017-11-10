@@ -1,4 +1,4 @@
-package kadai15;
+package kadai15museum;
 
 import java.util.Random;
 

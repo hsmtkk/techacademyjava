@@ -1,4 +1,4 @@
-package kadai11;
+package kadai11movie;
 
 import java.util.ArrayList;
 import java.util.Collections;

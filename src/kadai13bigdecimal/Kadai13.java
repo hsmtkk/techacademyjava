@@ -1,4 +1,4 @@
-package kadai13;
+package kadai13bigdecimal;
 
 import java.math.BigDecimal;
 

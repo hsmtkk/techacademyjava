@@ -1,4 +1,4 @@
-package kadai15;
+package kadai15museum;
 
 public class MuseumFee {
 	private final int STANDARD_FEE = 750;

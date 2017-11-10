@@ -1,4 +1,4 @@
-package kadai11;
+package kadai11movie;
 
 public class Sex {
 	private static Sex male = new Sex();
