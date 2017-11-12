@@ -1,0 +1,31 @@
+レビュー指摘事項の修正を確認しました、OKです。
+
+文法的に誤りではないのですが、気になったのでコメントします。
+
+```
+{if(age >= 20 && age <= 29)
+	System.out.println("20代です");;}
+{if(age >= 30 && age <= 39)
+	System.out.println("30代です");;}
+{if(age >= 40)
+	System.out.println("40代以上です");}
+```
+
+* 一番外側のカッコは不要です。
+
+* if文直後のカッコは省略できるのですが、バグの温床になりがちなので勧めません。
+
+まとめると、以下のコーディングを勧めます。
+
+```
+if(age >= 20 && age <= 29){
+	System.out.println("20代です");;
+}
+else if(age >= 30 && age <= 39){
+	System.out.println("30代です");;
+}
+else{
+	System.out.println("40代以上です");
+}
+```
+

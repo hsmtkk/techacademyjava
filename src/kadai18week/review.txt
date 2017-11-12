@@ -1,0 +1,197 @@
+課題を確認しました、OKです。
+
+実はCalendarクラスのgetInstanceメソッドは、現在の日付と時間をセットするので、現在時刻を取得する処理を省略できます。
+
+```
+// Date now = new Date();
+Calendar c = Calendar.getInstance();
+// c.setTime(now);
+```
+
+（参考）
+https://docs.oracle.com/javase/jp/8/docs/api/java/util/Calendar.html
+
+DateTime APIの使いこなしもばっちりです。
+
+この調子で学習を進めてください。
+
+・DateTime APIでの実装、OKです。
+
+・Calendarでの実装の方は難しく考えすぎてしまっているかもしれません。
+Calendarクラスには、曜日をあらわす定数が用意されています。これをうまく活用しましょう。
+
+（参考）
+https://docs.oracle.com/javase/jp/8/docs/api/java/util/Calendar.html
+
+たとえば、「日曜日かどうか」はこんなコードで判定できます。
+
+```
+if(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+    // 日曜日
+}
+else {
+    // それ以外
+}
+```
+
+ロジックの組み方はよく理解されているようなのであと一歩です。
+
+・今日は日曜日なのですが、以下の出力になってしまいました。
+残念ながら判定ロジックに誤りがありそうです。
+
+```
+Date & Calendarクラス
+Sun Nov 12 16:04:18 JST 2017日曜日
+お仕事頑張りましょう
+
+Date-TimeAPI
+2017-11-12T16:04:18.575+09:00[Asia/Tokyo]日曜日
+お仕事頑張りましょう
+```
+
+・曜日の文字列表現で判定するのではなく、CalendarクラスやDateTime APIのメソッドを使って判定してみましょう。
+たとえば「日曜日かどうか」は以下のようにコーディングできます。
+
+```
+if(cal1.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+    System.out.println("今日はお休みです");
+}
+```
+
+```
+if(zdt.getDayOfWeek() == DayOfWeek.SUNDAY) {
+    System.out.println("今日はお休みです");
+}
+```
+
+・現在日時の取得は正しく実装できているのであと一歩です。
+
+厳しいようですが、再提出をお願いします。
+
+```
+if (i == 1 || i == 7) {
+    System.out.println("今日はおやすみです");
+} else {
+    System.out.println("お仕事頑張りましょう");
+}
+```
+
+曜日の判定に「生の数字」(マジックナンバーといいます)を使っています。
+これはコードの可読性を下げるので、避けたほうが良いです。
+（時間がたってから見返したとき、あるいは他人が見たときに、わかりづらい。）
+
+Calendarクラスには、曜日をあらわす定数が用意されています。これをうまく活用しましょう。
+
+（参考）
+https://docs.oracle.com/javase/jp/8/docs/api/java/util/Calendar.html
+
+```
+if (i == Calendar.SUNDAY || i == Calendar.SATURDAY) {
+    System.out.println("今日はおやすみです");
+} else {
+    System.out.println("お仕事頑張りましょう");
+}
+```
+
+といった具合ですね。
+
+コードそのものはよく書けているので、あと一歩です。
+
+提出ファイルを拝見したのですが、レビュー指摘事項が反映されていないようです。
+もしかするとファイルの取り違えでしょうか。
+
+修正を確認しました、OKです。
+
+尾倉さんコメントの再掲ですが、定数を利用するとコードを読みやすくなります。
+クラスに用意されているものは積極的に利用しましょう。
+
+* この調子で学習を進めてください。
+
+・Calendarクラスの実装ですが、2つ修正をお願いします。
+
+1. getMaximumメソッドは、そのフィールドの最大値を返すメソッドです。
+
+```
+int week = cal.getMaximum(Calendar.DAY_OF_WEEK);
+```
+
+（参考）
+https://docs.oracle.com/javase/jp/7/api/java/util/Calendar.html#getMaximum(int)
+
+この場合、常に7が返ってくるので、「今日の曜日を判定する」という目的にはそぐいません。
+代わりにgetメソッドを使いましょう。
+
+```
+int week = cal.get(Calendar.DAY_OF_WEEK);
+```
+
+2. 曜日の判定に「生の数字」(マジックナンバーといいます)を使っています。
+これはコードの可読性を下げるので、避けたほうが良いです。
+（時間がたってから見返したとき、あるいは他人が見たときに、わかりづらい。）
+
+```
+if (week == 1 || week == 7) {
+　　　　System.out.println("今日はお休みです。");
+} else {
+    System.out.println("お仕事がんばりましょう。");
+}
+```
+
+Calendarクラスには、曜日をあらわす定数が用意されています。これをうまく活用しましょう。
+
+```
+if (week == Calendar.SUNDAY || week == Calendar.SATURDAY) {
+　　　　System.out.println("今日はお休みです。");
+} else {
+    System.out.println("お仕事がんばりましょう。");
+}
+```
+
+といった具合ですね。
+
+・DateTime APIでの実装
+
+今日は日曜日なのですが、以下の出力になってしまいました。
+残念ながら判定ロジックに誤りがありそうです。
+
+```
+現在日時は2017-11-12T16:44:16.152
+お仕事がんばりましょう
+```
+
+曜日の判定に文字列比較を用いているのがマズイです。DayOfWeekの定数と比較しましょう。
+
+```
+if (ldt.getDayOfWeek() == DayOfWeek.SUNDAY || ldt.getDayOfWeek() == DayOfWeek.SATURDAY) {
+```
+
+・コーディング方針そのものはOKなので、あと一歩です。
+
+* Calendarクラス、DateTime APIでの実装、ともにOKです。
+日付の操作をよく理解されていると思います。
+
+* 参考までに現在日時の表記をシンプルに実装する方法を紹介しておきます。
+
+```
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 E曜日");
+System.out.println(sdf.format(calendar.getTime()));
+```
+
+* Calendarクラス、完璧です。定数(SUNDAY, SATURDAY)を利用している点も素晴らしいです。
+
+* 「Date-TimeAPIでの実装」が指定なので、それに従った実装をお願いします。
+具体的には、以下のようなコードを使っていきます。
+
+```
+LocalDateTime now = LocalDateTime.now();
+// now.getDayOfWeek()で曜日を取得できる
+```
+
+(参考)
+https://docs.oracle.com/javase/jp/8/docs/api/java/time/LocalDateTime.html#getDayOfWeek--
+
+ちなみにgetDayOfWeekの戻り値はDayOfWeekという列挙型になるので、これまた定数と比較できます。
+リファレンスを参照してみましょう。
+
+(参考)
+https://docs.oracle.com/javase/jp/8/docs/api/java/time/DayOfWeek.html

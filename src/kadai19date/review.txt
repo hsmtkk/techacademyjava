@@ -1,0 +1,26 @@
+Calendarクラスでの実装、DateTime APIでの実装、いずれも完璧です、すばらしい。
+
+特にSimpleDateFormatを使った整形が、工夫を感じられます。
+
+Calendarクラスでの実装、DateTime APIでの実装、いずれもOKです。
+
+日付の加算も正しく実装できましたね。
+
+この調子で学習を進めてください。
+
+* Calendarクラスでの実装、OKです。
+しいて申し上げると、使っていない変数(date, sdf2)があります、削除しておきましょう。
+
+* DateTime APIでの実装、OKです。
+日付の加算も正しく実装できましたね。
+
+この調子で学習を進めてください。
+
+* Calendarクラスでの実装、OKです。
+SimpleDateFormatでの整形もばっちりです。
+
+* DateTime APIでの実装、OKです。
+日付の加算も正しく実装できましたね。
+しいて申し上げると、使っていない変数(parsedDate, formatter2, parsedDate2)があります、削除しておきましょう。
+
+この調子で学習を進めてください。
