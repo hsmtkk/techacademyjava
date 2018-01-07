@@ -20,7 +20,12 @@ Calendarクラスでの実装、DateTime APIでの実装、いずれもOKです。
 SimpleDateFormatでの整形もばっちりです。
 
 * DateTime APIでの実装、OKです。
+DateTimeFormatterでの整形も良しです。
+
+日付の処理は全く問題なさそうですね。この調子で学習を進めてください。
+
+
 日付の加算も正しく実装できましたね。
 しいて申し上げると、使っていない変数(parsedDate, formatter2, parsedDate2)があります、削除しておきましょう。
 
-この調子で学習を進めてください。
+

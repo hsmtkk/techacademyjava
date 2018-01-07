@@ -1,0 +1,61 @@
+レビュー指摘事項の修正を確認しました。
+すべてOKです。
+BigDecimalクラスを用いた四則演算を正しく実装できています。
+
+さて、ソースコード中の
+
+```
+// BigDecimal pi = new BigDecimal("Math.PI");←扱えきれない桁数？
+```
+
+ですが、以下のようにすればOKです。
+
+```
+BigDecimal pi = new BigDecimal(Math.PI);
+```
+
+今後の参考になさってください。
+
+
+課題1から４まですべてOKです。
+BigDecimalクラスを用いた四則演算を正しく実装できています。
+
+しいて申し上げると、課題3でメソッドの引数名を工夫するとよいでしょう。
+例えば、高さ、幅、の意味で、height, widthとしてみました。
+
+```
+	public static BigDecimal calculate(BigDecimal width, BigDecimal height) {
+		BigDecimal result = width.multiply(height);
+		return result;
+	}
+```
+
+* 課題4では引数で半径を指定できるようにしたのですね、たいへん良い工夫だと思います。
+
+参考までに、円周率はMathクラスで定数定義されています。
+参考になさってください。
+
+```
+BigDecimal pi = new BigDecimal(Math.PI);
+```
+
+* しいて申し上げると、課題3で使用しない変数を宣言しています。
+バグの温床になるので、削除しておくとよいでしょう。
+
+```
+BigDecimal hanke
+```
+
+
+
+この調子で学習を進めてください。
+
+参考までに、円周率パイは定数で定義されているので、
+
+```
+BigDecimal pi = new BigDecimal(Math.PI);
+```
+
+という記述もできます。
+
+

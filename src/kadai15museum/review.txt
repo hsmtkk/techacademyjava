@@ -1,0 +1,182 @@
+問題文から読み取りきれない部分があるのですが、2通りの考え方があると思います。
+
+(1)750円×20人=15000円、25%割引を適用して、15000*0.75=11250円。
+合計支払額は11250円。
+20人でこれを割り勘して、一人当たり562.5円。
+つまり10人は562円、残り10人は563円を払う。
+
+(2)750円に25%割引を適用し、切り捨てで562円。
+20人がそれぞれ562円を払うので、合計支払額は11240円。
+
+上でメンターの皆さんがおっしゃっているのは(2)の考え方なので、以下の結果を期待しています。
+
+```
+20人で11240円。一人当たり562円。
+```
+
+杉野さんが(1)の考え方だとすると、作成してもらったコードで正解です。
+
+なお(2)にするには、以下のようにすればOKです。
+
+```
+		int num = Lesson5_04_2.x;
+		BigDecimal bd = new BigDecimal(750*0.75);
+		BigDecimal bd1 = bd.setScale(0, BigDecimal.ROUND_DOWN);
+		BigDecimal num2 = new BigDecimal(num);
+		BigDecimal sum = num2.multiply(bd1).setScale(0,BigDecimal.ROUND_DOWN);
+
+		if(num<=0) {
+			System.out.println("入力エラーです");
+		}else {
+			if(num<15) {
+				System.out.println(num+"人で"+num*750+"円。一人当たり750円。");
+			}else {
+				System.out.println(num+"人で"+sum+"円。一人当たり"+bd1+"円。");
+			}
+		}
+```
+
+また、定数を活用できるとなお良しです。例えば以下の通りです。
+
+```
+public static final int PRICE = 750;
+public static final double DISCOUNT_RATE = 0.75;
+public static final int DISCOUNT_NUMBER = 15;
+```
+
+
+
+レビュー指摘事項の修正を確認しました。
+人数を別クラスに持たせるようにしたのですね、
+学習内容を早速活かしておられ、すばらしいと思います。
+この調子で学習を進めてください。
+
+処理そのものは正しいのですが、仕様に従っていない点があるので再提出をお願いします。
+
+(1)
+
+```
+クラスフィールドまたはインスタンスフィールドとして人数を持たせて、
+```
+
+とあるので、人数を保持するクラスを別に作りましょう。
+
+例えば以下のようなMuseumFeeクラスを作成して人数を管理しましょう。
+
+```
+class MuseumFee {
+ private int number;
+ // 以下略
+}
+```
+
+(2)
+
+```
+15名様の料金は8437.0円。お一人様ごとの料金は562.0円です
+5名様の料金は3750.0円。お一人様ごとの料金は750.0円です
+```
+
+のように結果が表示されます。
+合計料金、一人当たり料金が少数というのは不自然なので、整数で表示しましょう。
+
+```
+15名様の料金は8437円。お一人様ごとの料金は562円です
+5名様の料金は3750円。お一人様ごとの料金は750円です
+```
+
+という表示になれば完璧です。
+
+ （3 補足）
+この章では、定数の使い方も学習したと思うので、使いこなせるとベターです。例えば、以下のように割引率を定義する、など。
+
+```
+private final static double DISCOUNT_RATE = 0.75;
+```
+
+* レビュー指摘事項の修正を確認しました、OKです。
+条件分岐、クラスの実装など、正しく理解できていると思います。
+
+* しいて申し上げると、MuseumPriceクラスのコンストラクタで人数を指定できるようにするとベターだと思います。
+
+```
+	private int number = 15;
+```
+
+ではなく、
+
+```
+	private int number;
+
+	public MuseumPrice(int number) {
+		this.number = number;
+	}
+```
+
+という具合ですね。こうするとMuseumクラス側で、
+
+```
+MuseumPrice museumPrice = new MuseumPrice(15);
+```
+
+のように、動的に人数を設定できるようになります。
+
+* 以下、ご質問の件に回答します。
+
+```
+価格や割引率を、定数扱いということでstatic finalをつけたのですが、定数をメインメソッドで使うときには結局インスタンスごとに呼び出す必要がありました。（ゲッターが非staticだったため）
+この場合はゲッターも定数でよいのでしょうか？
+```
+
+クラス外からも参照したい定数の場合は、 ```public static final``` 修飾子を付けるのが一般的です。
+こうすると、Museumクラスからも参照できるので、割引金額の計算は以下のように記述できます。
+
+```
+shiharai *= MuseumPrice.DISCOUNT_RATE;
+```
+
+* 処理には関係しないのですが、今後のために指摘です。
+
+```
+	public void setNumber(int numeber) {
+		this.number = number;
+	}
+```
+
+となっていますが、```numeber```は```number```のスペルミスですね。
+そのため、引数のnumeberは実際には使われず、MuseumPriceのフィールドであるnumberをnumberに再代入する、というコードになっています。
+
+Eclipseが警告を表示しているので、注意してみましょう。
+https://gyazo.com/4948bac0b0d662e3abc8af8b3d684ce1
+
+* 課題を確認しました、OKです。１５人以上かどうかの場合分け、BigDecimalクラスを使った計算を正しく実装できています。
+
+* ご質問の3桁ごとカンマ区切りには、NumberFormatクラスを使うとよいです。
+
+https://docs.oracle.com/javase/jp/7/api/java/text/NumberFormat.html
+
+以下に利用例を示します。
+
+```
+import java.text.NumberFormat;
+import java.util.Locale;
+
+public class NumberFormatDemo {
+
+	public static void main(String[] args) {
+		int price = 1234567;
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.JAPANESE);
+        System.out.println(formatter.format(price));
+	}
+
+}
+```
+
+実行すると、以下の結果を得られます。
+
+```
+￥ 1,234,567.00
+```
+
+
+この結果は、

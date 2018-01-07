@@ -1,3 +1,50 @@
+曜日の判定に「生の数字」(マジックナンバーといいます)を使っています。
+これはコードの可読性を下げるので、避けたほうが良いです。
+（時間がたってから見返したとき、あるいは他人が見たときに、わかりづらい。）
+
+Calendar、DayOfWeekクラスには、曜日をあらわす定数が用意されています。これをうまく活用しましょう。
+
+
+
+# DateクラスとCalendarクラスを使って実装
+
+以下の箇所ですが、Calendarクラスに曜日を表す定数があります。
+
+https://docs.oracle.com/javase/jp/7/api/java/util/Calendar.html#SUNDAY
+https://docs.oracle.com/javase/jp/7/api/java/util/Calendar.html#SATURDAY
+
+1や7のような数字そのもの（マジックナンバーといいます）を使うと、後々見返したときに意味を読み取れず、バグの原因になります。
+クラスで用意されている定数、無い場合は自分で定義した定数を使うとよいでしょう。
+
+
+```
+		if (week1 == 1 || week1 == 7) {
+			System.out.println("今日はお休みです");
+		} else {
+
+			System.out.println("お仕事頑張りましょう");
+		}
+```
+
+# Date-TimeAPIでの実装
+今日は日曜日なのですが、残念なことに「お仕事頑張りましょう」の表示になってしまいました。
+
+getDayOfWeekはDayOfWeek型を返します。
+上と同様に定数があるので、これと比較するのが良いでしょう。
+
+https://docs.oracle.com/javase/jp/8/docs/api/java/time/DayOfWeek.html#SUNDAY
+https://docs.oracle.com/javase/jp/8/docs/api/java/time/DayOfWeek.html#SATURDAY
+
+例えば日曜日かどうかを判定したければ、以下のようなコードになります。
+
+```
+DayOfWeek week2 = ldt.getDayOfWeek();
+if(week2 == DayOfWeek.SUNDAY) {
+ // 日曜日の処理        	
+}
+```
+
+
 課題を確認しました、OKです。
 
 実はCalendarクラスのgetInstanceメソッドは、現在の日付と時間をセットするので、現在時刻を取得する処理を省略できます。
@@ -195,3 +242,13 @@ https://docs.oracle.com/javase/jp/8/docs/api/java/time/LocalDateTime.html#getDay
 
 (参考)
 https://docs.oracle.com/javase/jp/8/docs/api/java/time/DayOfWeek.html
+
+課題を確認しました、OKです。
+
+Calendarクラスでの実装、DateTime APIでの実装、ともに申し分ありません。
+
+定数(SUNDAY, SATURDAY)を利用して実装できた点も素晴らしいです。
+
+条件の取り違え(ANDとOR)は、現実の業務でもありがちです。
+if文が成立する場合、しない場合、両方をテストするとよいですね。
+
