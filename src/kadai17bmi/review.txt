@@ -1,37 +1,39 @@
-�ۑ���m�F���܂����AOK�ł��B
+課題を確認しました、OKです。
 
-�N���X�̕����A�R���X�g���N�^�A�Z�b�^�[�A�Q�b�^�[�̎����A
-�ʂ̃N���X����̌Ăяo���Ȃǐ������R�[�f�B���O�ł��Ă��܂��B
-�v�Z���ʂɑ΂������������\�����Ȃ��ł��B
+クラスの分離、コンストラクタ、セッター、ゲッターの実装、
+別のクラスからの呼び出しなど正しくコーディングできています。
+計算結果に対する条件分岐も申し分なしです。
 
-���̒��q�Ŋw�K��i�߂Ă��������B
+calcBMI、checkBMIといったメソッド名もわかりやすくて良いですね。
 
-�v�Z����BMI�l�̕ێ���BigDecimal�N���X���g�����̂ł��ˁA
-�w�K�����X�L���𑁑����p�ł��Ă��āA���΂炵���Ǝv���܂��B
+この調子で学習を進めてください。
 
-�ϐ����⃁�\�b�h�����H�v����ƁA���コ��Ƀ��x���A�b�v�ł������ł��B
+計算したBMI値の保持にBigDecimalクラスを使ったのですね、
+学習したスキルを早速活用できていて、すばらしいと思います。
 
-�E�g��ht�A�̏dwt�ł����A�������ɁAheight, weight�Ƃ��������A���͓ǂ݂₷�Ɗ����܂��B
+変数名やメソッド名を工夫すると、今後さらにレベルアップできそうです。
 
-�EBMI�̌v�Z���\�b�hcalc�́A�uBMI���v�Z����v�Ƃ����Ӗ��ŁAcalcBMI���Ƃ킩��₷���ł��B
-�܂��A�uBMI���v�Z����v�@�\�ƁuBMI�̒l�ɉ����Ĕ얞�x�𔻒肷��v�@�\��2���܂�ł���̂ŁA
-��������ƃR�[�h�̕ێ琫���オ��܂��ˁB
+・身長ht、体重wtですが、略さずに、height, weightとした方が、私は読みやすと感じます。
 
-���̒��q�Ŋw�K��i�߂Ă��������B
+・BMIの計算メソッドcalcは、「BMIを計算する」という意味で、calcBMIだとわかりやすいです。
+また、「BMIを計算する」機能と「BMIの値に応じて肥満度を判定する」機能の2つを含んでいるので、
+分割するとコードの保守性が上がりますね。
 
-* �v���O���~���O���̂��̂͂悭�ł��Ă��܂��B
-�ۑ�̎w��ɁA
-``` �Z�o���ꂽBMI�����Ɂu��̏d�v�u�W���v�u�얞�v�Ȃǂ̕��ނɕ����ĕ\�����܂��傤�B ```
-�Ƃ���̂ŁABMI�̌v�Z�����A���̒l�����Ƃɕ��ނ�\�����鏈���������Ă��������B
+この調子で学習を進めてください。
 
-* Person�N���X�ɖ��O����������݌v�ɂ����̂ł��ˁA�ǂ��H�v���Ǝv���܂��B
-�J�v�Z�����̌����ɂ��A���R�̂Ȃ�����t�B�[���h�̃A�N�Z�X�C���q��private�ɂ��܂��傤�B
+* プログラミングそのものはよくできています。
+課題の指定に、
+``` 算出されたBMIを元に「低体重」「標準」「肥満」などの分類に分けて表示しましょう。 ```
+とあるので、BMIの計算をし、その値をもとに分類を表示する処理を加えてください。
+
+* Personクラスに名前を持たせる設計にしたのですね、良い工夫だと思います。
+カプセル化の原則により、理由のない限りフィールドのアクセス修飾子はprivateにしましょう。
 
 ```
 private String name;
 ```
 
-* BMI�̌v�Z�ŁA�����Őg���Ƒ̏d��n���Ă��܂��B
+* BMIの計算で、引数で身長と体重を渡しています。
 
 ```
 	public static double bmi(double height, double weight) {
@@ -41,7 +43,7 @@ private String name;
 	}
 ```
 
-�����͈ȉ��̂悤��Person�C���X�^���X��n���A���\�b�h���Őg���Ƒ̏d�����o���A�Ƃ������@������ł��B
+ここは以下のようにPersonインスタンスを渡し、メソッド内で身長と体重を取り出す、という方法もありです。
 
 ```
 	public static double bmi(Person person) {
@@ -52,14 +54,14 @@ private String name;
 	}
 ```
 
-�ۑ���m�F���܂����AOK�ł��B
-BMI�̎Z�o���@�𒲍����A�����������ł��Ă���Ǝv���܂��B
+課題を確認しました、OKです。
+BMIの算出方法を調査し、正しく実装できていると思います。
 
-�����Đ\���グ��ƁA�u�v���O�����̉ǐ��A�ێ琫����̂��߂ɁA�P�̃��\�b�h�ɂ͂P�̖���������������̂��ǂ��v�Ƃ���Ă��܂��B
-���̉ۑ�ł�����A�ȉ��Q�̃��\�b�h�ɕ�����Ɨǂ��ł��傤�B
+しいて申し上げると、「プログラムの可読性、保守性向上のために、１つのメソッドには１つの役割だけ持たせるのが良い」とされています。
+この課題でしたら、以下２つのメソッドに分けると良いでしょう。
 
-* BMI���v�Z����
+* BMIを計算する
 
-* BMI�̒l�����Ƃɑ̌^�𔻒肷��
+* BMIの値をもとに体型を判定する
 
-�]�͂�����������g��ł݂Ă��������B
+余力があったら取り組んでみてください。

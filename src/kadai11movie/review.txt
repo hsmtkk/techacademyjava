@@ -1,14 +1,14 @@
-* �ۑ���m�F���܂����AOK�ł��B
-�R���X�g���N�^�A�Z�b�^�[�A�Q�b�^�[�̎����A���N���X����̌Ăяo���𐳂����L�q�ł��Ă��܂��B
-�܂��A�����v�Z�̏���������΂�����ł��B
-
-* �����Đ\���グ��ƁA�ȉ���else��͋�Ȃ̂ŕs�v�ł��B
-���ʂȗ��R�̖�������A�����������̂ō폜�����ق����ǂ��ł��傤�B
+ソースコードを拝見しました、OKです。
+クラスの分離、セッター・ゲッターによる値の設定や取得を正しく実装できておりました。
 
 ```
-		if (cus.isIs3D()) {
-			price += 400;
-		} else {
-
-		}
+boolean moveday;
+boolean rady;
+boolean lateshow;
+boolean treeD;
 ```
+
+となっておりましたが、カプセル化のために、これら変数もprivate修飾子を付けるとよいでしょう。
+
+フィールド変数のアクセス修飾子(private)も正しく設定されておりました。
+料金計算ロジックをgetPriceメソッドにまとめたのもわかりやすくて良いですね。

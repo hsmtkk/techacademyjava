@@ -3,8 +3,8 @@ Calendarクラスでの実装、DateTime APIでの実装、いずれも完璧で
 特にSimpleDateFormatを使った整形が、工夫を感じられます。
 
 Calendarクラスでの実装、DateTime APIでの実装、いずれもOKです。
-
 日付の加算も正しく実装できましたね。
+Calendarクラスはaddメソッド、LocalDateTimeクラスはplusDaysメソッドを使うのガポイントですね。
 
 この調子で学習を進めてください。
 

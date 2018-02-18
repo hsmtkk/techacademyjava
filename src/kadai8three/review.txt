@@ -1,6 +1,6 @@
-�ۑ���m�F���܂����AOK�ł��B
+課題を確認しました、OKです。
 
-�Q�l�܂ł�for���ł̎����p�^�[�����Љ�Ă����܂��B
+参考までにfor文での実装パターンを紹介しておきます。
 
 ```
 		for (int i = 1; i <= 50; i++) {
@@ -13,31 +13,32 @@
 ```
 
 
-for���ł̌J��Ԃ��A���܂�̌v�Z�AOK�ł��B
+for文での繰り返し、あまりの計算、OKです。
 
-�Q�l�܂ł�while���ł̎������̂��Ă����܂��ˁB
-for���Ɣ�r���Ă݂Ă��������B
+参考までにwhile文での実装ものせておきますね。
+for文と比較してみてください。
 
 ```
 int i=1;
 while(i<=50) {
 	if (i % 3 == 0) {
-		System.out.println(i + "  ��3�̔{��");
+		System.out.println(i + "  は3の倍数");
 	} else {
 		System.out.println(i);
+	}
+	i++;
 }
-i++;
 ```
 
-���̊��o�Ƃ��ẮA���̖��ɑ΂��Ă�for���̂ق����������肫�܂��B
+私の感覚としては、この問題に対してはfor文のほうがしっくりきます。
 
-for���ł̌J��Ԃ��A���܂�̌v�Z�AOK�ł��B
-�J��Ԃ��̓v���O���~���O�̕p�o�p�^�[���Ȃ̂ŁA����������K���A�g�����Ȃ���悤�ɂȂ��Ă��������ˁB
+for文での繰り返し、あまりの計算、OKです。
+繰り返しはプログラミングの頻出パターンなので、たくさん練習し、使いこなせるようになってくださいね。
 
-for���ł̌J��Ԃ��A���܂�̌v�Z�AOK�ł��B
-����̂��߂ɉ��P�|�C���g��`���܂��B
+for文での繰り返し、あまりの計算、OKです。
+今後のために改善ポイントを伝えます。
 
-* �ȉ��̃R�[�h�͕s�v�ł��B
+* 以下のコードは不要です。
 
 ```
  else if (i >= 51) {
@@ -45,14 +46,14 @@ for���ł̌J��Ԃ��A���܂�̌v�Z�AOK�ł��B
 			}
 ``` 
 
-for���̏I������ ```i <= 50``` ������̂ŁAbreak�����Ƃ��A ```i=51``` �ɂȂ������_�Ń��[�v���I�����܂��B
+for文の終了条件 ```i <= 50``` があるので、breakせずとも、 ```i=51``` になった時点でループが終了します。
 
-* �D�݂̖�������܂����A�u�����Ƀ}�b�`����Ƃ���A�A�}�b�`���Ȃ��Ƃ���B�v�Ƃ��������́Aif-else���ŏ����Ɓi�ǂݎ�ɂƂ��āj�킩��₷���ł��B
-���̂��߁A���ł����炱���R�[�f�B���O���܂��B
+* 好みの問題もありますが、「条件にマッチするときはA、マッチしないときはB」という処理は、if-else文で書くと（読み手にとって）わかりやすいです。
+そのため、私でしたらこうコーディングします。
 
 ```
 			if (i % 3 == 0) {
-				System.out.println("3�̔{���ł��B");
+				System.out.println("3の倍数です。");
 			} else {
 				System.out.println(i);
 			}

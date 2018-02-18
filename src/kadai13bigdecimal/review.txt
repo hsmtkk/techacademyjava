@@ -1,61 +1,54 @@
-���r���[�w�E�����̏C�����m�F���܂����B
-���ׂ�OK�ł��B
-BigDecimal�N���X��p�����l�����Z�𐳂��������ł��Ă��܂��B
+# 課題1
+確認しました。平方根の計算について問題ありません。
 
-���āA�\�[�X�R�[�h����
-
-```
-// BigDecimal pi = new BigDecimal("Math.PI");����������Ȃ������H
-```
-
-�ł����A�ȉ��̂悤�ɂ����OK�ł��B
+# 課題2
+この課題の意図はBigDecimalインスタンスどうしのかけ算です。
+(int型どうしでなく)
+従って、
 
 ```
-BigDecimal pi = new BigDecimal(Math.PI);
+BigDecimal length = new BigDecimal(10);
+BigDecimal width = new BigDecimal(5);
 ```
 
-����̎Q�l�ɂȂ����Ă��������B
+とした後に、widthとlengthをかけ算する方法を考えてみてください。
 
+(参考)
+https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#multiply-java.math.BigDecimal-
 
-�ۑ�1����S�܂ł��ׂ�OK�ł��B
-BigDecimal�N���X��p�����l�����Z�𐳂��������ł��Ă��܂��B
-
-�����Đ\���グ��ƁA�ۑ�3�Ń��\�b�h�̈��������H�v����Ƃ悢�ł��傤�B
-�Ⴆ�΁A�����A���A�̈Ӗ��ŁAheight, width�Ƃ��Ă݂܂����B
-
-```
-	public static BigDecimal calculate(BigDecimal width, BigDecimal height) {
-		BigDecimal result = width.multiply(height);
-		return result;
-	}
-```
-
-* �ۑ�4�ł͈����Ŕ��a���w��ł���悤�ɂ����̂ł��ˁA�����ւ�ǂ��H�v���Ǝv���܂��B
-
-�Q�l�܂łɁA�~������Math�N���X�Œ萔��`����Ă��܂��B
-�Q�l�ɂȂ����Ă��������B
+# 課題3
+課題2と同様に、BigDecimalインスタンスどうしでかけ算をしましょう。
+従って、areaメソッドは以下のような形式になります。
 
 ```
-BigDecimal pi = new BigDecimal(Math.PI);
+public static BigDecimal area(BigDecimal width, BigDecimal height) {
+ // widthとheightのかけ算
+ // 計算結果を返す。
+}
 ```
 
-* �����Đ\���グ��ƁA�ۑ�3�Ŏg�p���Ȃ��ϐ���錾���Ă��܂��B
-�o�O�̉����ɂȂ�̂ŁA�폜���Ă����Ƃ悢�ł��傤�B
+# 課題4
+課題2と同様に、BigDecimalインスタンスどうしで演算をしましょう。
+従って、circle, areaメソッドは以下のような形式になります。
 
 ```
-BigDecimal hanke
+public static BigDecimal circle(BigDecimal r){
+ // 円周を計算する
+ // 計算結果を返す
+}
+
+public static BigDecimal area(BigDecimal r){
+ // 面積を計算する
+ // 計算結果を返す
+}
 ```
 
 
+* 課題4
+課題2と同様に、BigDecimalインスタンスどうしでかけ算をしましょう。
+定数Math.PIを使ったのは良い工夫ですね。
 
-���̒��q�Ŋw�K��i�߂Ă��������B
-
-�Q�l�܂łɁA�~�����p�C�͒萔�Œ�`����Ă���̂ŁA
-
-```
-BigDecimal pi = new BigDecimal(Math.PI);
-```
-
-�Ƃ����L�q���ł��܂��B
-
+課題1から4まで全てOKです。
+BigDecimalクラスの取扱、マスターできましたね。
+addメソッドやmultiplyメソッドによる四則演算も正しくコーディングできておりました。
 
