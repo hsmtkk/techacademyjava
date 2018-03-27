@@ -1,0 +1,57 @@
+<p>この記事ではJavaのStringクラス、indexOfメソッドの使い方を説明します。
+文字列中に特定のパターンが出現するか判定したり、その位置で文字列を分割したりするのに用います。</p>
+
+<h1>indexOfメソッドとは</h1>
+<ul>
+	<li>indexOfメソッドはStringクラスのメソッドの一つです。</li>
+	<li>ある文字列の中で、指定した文字列が最初に出現する位置を返します。</li>
+	<li>指定した文字列が出現しない場合は-1を返します。</li>
+</ul>
+
+<h1>indexOfメソッドの使い方</h1>
+<p>引数の型と数により、4通りの使い方(オーバーロード)がああります。</p>
+<ol>
+	<li>public int indexOf(String str)</li>
+	<li>public int indexOf(String str, int fromIndex)</li>
+	<li>public int indexOf(int ch)</li>
+	<li>public int indexOf(int ch, int fromIndex)</li>
+</ol>
+
+<ul>
+<li>前者2つが文字列(String)型で検索する用法、後者2つが文字(char)型で検索する用法です。</li>
+<li>引数に整数(int fromIndex)を与えると、<b>その位置から後方</b>を検索対象にします。</li>
+</ul>
+
+<h1>実際に書いてみよう</h1>
+<h2>ソースコード</h2>
+<pre>
+public class IndexOfDemo {
+  public static void main(String[] args) {
+    String s = "あいうえおかきくけこあいうえおかきくけこ";
+
+    int n = s.indexOf("かきくけこ");
+    System.out.println(n);
+    
+    n = s.indexOf("かきくけこ", 10);
+    System.out.println(n);
+    
+    n = s.indexOf("さしすせそ");
+    System.out.println(n);
+  }
+}
+</pre>
+
+<h2>実行結果</h2>
+<pre>
+5
+15
+-1
+</pre>
+
+<h2>解説</h2>
+<ul>
+	<li>適当な文字列 &quot;あいうえおかきくけこあいうえおかきくけこ&quot; を用意します。</li>
+	<li>&quot;かきくけこ&quot; を検索すると、この文字列は5番目から出現するため、「5」が返ります。</li>
+	<li>同様に &quot;かきくけこ&quot; を検索しますが、今度は10番目以降からの検索なので、「15」が返ります。</li>
+	<li>&quot;さしすせそ&quot; は出現しないので、「-1」が返ります。
+</ul>

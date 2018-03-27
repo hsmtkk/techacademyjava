@@ -5,36 +5,36 @@ import java.util.Random;
 public class Kadai62 {
 
 	public static void main(String[] args) {
-		String[] destinations = { "–kŠC“¹", "“Œ–k", "ŠÖ“Œ", "bM‰z", "’†•”", "‹ß‹E", "l‘", "’†‘", "‹ãB", "‰«“ê", "“Œ‹“s", "”ªä“‡" };
+		String[] destinations = { "åŒ—æµ·é“", "æ±åŒ—", "é–¢æ±", "ç”²ä¿¡è¶Š", "ä¸­éƒ¨", "è¿‘ç•¿", "å››å›½", "ä¸­å›½", "ä¹å·", "æ²–ç¸„", "æ±äº¬éƒ½", "å…«ä¸ˆå³¶" };
 		String dest = destinations[(new Random()).nextInt(destinations.length)];
 		int fee = 0;
 		switch (dest) {
-		case "–kŠC“¹":
+		case "åŒ—æµ·é“":
 			fee = 1000;
 			break;
-		case "‹ãB":
-		case "‰«“ê":
+		case "ä¹å·":
+		case "æ²–ç¸„":
 			fee = 950;
 			break;
-		case "“Œ–k":
-		case "’†‘":
+		case "æ±åŒ—":
+		case "ä¸­å›½":
 			fee = 800;
 			break;
-		case "ŠÖ“Œ":
-		case "bM‰z":
-		case "l‘":
+		case "é–¢æ±":
+		case "ç”²ä¿¡è¶Š":
+		case "å››å›½":
 			fee = 700;
 			break;
-		case "’†•”":
+		case "ä¸­éƒ¨":
 			fee = 650;
 			break;
-		case "‹ß‹E":
+		case "è¿‘ç•¿":
 			fee = 600;
 			break;
 		default:
-			System.err.println("“ü—Íƒf[ƒ^ƒGƒ‰[‚Å‚·");
+			System.err.println("å…¥åŠ›ãƒ‡ãƒ¼ã‚¿ã‚¨ãƒ©ãƒ¼ã§ã™");
 			return;
 		}
-		System.out.println(dest + "‚Ö‚Ì‘——¿‚Í" + fee + "‰~‚Å‚·");
+		System.out.println(dest + "ã¸ã®é€æ–™ã¯" + fee + "å††ã§ã™");
 	}
 }

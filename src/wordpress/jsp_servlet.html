@@ -1,0 +1,122 @@
+<h1>JSP、サーブレットとは</h1>
+この記事では、Javaサーブレット(以降サーブレット)とJSP(Java Server Pages)を説明します。
+また、サーブレット、JSPの簡単なプログラムを作成してTomcat上で実行し、Webブラウザからアクセスしてみます。
+
+<h2>JSP、サーブレットとは</h2>
+サーブレット、JSPは、Webサーバ上でJavaを実行し、動的にWebページを生成するための技術です。
+JSPはHTMLの一部として、Javaのコードを記述できるのが特徴です。
+特に大規模アプリケーション開発では、サーブレットとJSPを分け、プログラマーとデザイナーで役割分担できることが重宝されています。
+
+<h2>サーブレットの動作概要</h2>
+<ol>
+	<li>クライアントがサーブレットにリクエストを発行すると、サーブレットのserviceメソッドが呼び出されます。</li>
+	<li>最初にサーブレットはリクエストがGETメソッドかPOSTメソッドかを判定します。
+(GETメソッド、POSTメソッドの差異は<a href="https://developer.mozilla.org/ja/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data">こちら</a>をご覧ください。)
+
+<table border="1">
+	<tr><th>リクエストのメソッド</th><th>対応するサーブレットのメソッド</th></tr>
+	<tr><td>GET</td><td>doGet</td></tr>
+	<tr><td>POST</td><td>doPost</td></tr>
+</table>
+	</li>
+
+	<li>doGetメソッド、doPostメソッドともに、HttpServletRequestインスタンス、HttpServletResponseインスタンスを引数にとります。</li>
+	<li>HttpServletRequestインスタンスから、リクエストの属性や中身を取得できます。</li>
+	<li>HttpServletResposeインスタンスに、レスポンスを書き込みます。</li>
+</ol>
+
+
+<h2>JSPの動作概要</h2>
+<ol>
+	<li>JSPはHTMLによく似た構造ですが、Javaコードを含んでいるのが特徴です。</li>
+	<li>クライアントがJSPを要求すると、WebサーバはJSPをサーブレットにコンパイルします。</li>
+	<li>後は「サーブレットの動作概要」と同様に、サーバ側の処理が行われます。</li>
+</ol>
+
+<h2>実際に書いてみよう</h2>
+<h3>環境</h3>
+この記事のプログラムは以下の環境で作成、実行しました。
+<ul>
+	<li>Eclipse 4.7.2</li>
+	<li>Apache Tomcat 9.0.6</li>
+	<li>Tomcatがlocalhost, 8080で動作しています。</li>
+	<li>Eclipseで動的ウェブプロジェクト「dynamic_web_alpha」を作成し、作業しています。</li>
+</ul>
+
+<h3>JSPの例</h3>
+以下のようなtest0.jspを作成しました。
+<h4>ソースコード</h4>
+<pre>
+&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=ISO-8859-1&quot;
+    pageEncoding=&quot;ISO-8859-1&quot;%&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=ISO-8859-1&quot;&gt;
+    &lt;title&gt;test0&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+	  &lt;% out.println(&quot;Hello JSP&quot;); %&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<h4>実行結果</h4>
+http://127.0.0.1:8080/dynamic_web_alpha/test0.jsp にアクセスしてみます。
+<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/jsp.png">
+画像のとおり、「Hello JSP」と表示されました。
+
+<h4>解説</h4>
+<ul>
+	<li>冒頭の &lt;%@ page language=&quot;java&quot; の部分で、これがJSPファイルであることを宣言しています。</li>
+	<li>&lt;% out.println(&quot;Hello JSP&quot;); %&gt;の部分がJavaのコードです。</li>
+	<li>通常のJavaプログラムならば、 System.out.println と記述する所ですが、JSPで System.out.println (標準出力への書き込み)を使っても画面には表示できません。</li>
+	<li>代わりに、あらかじめ用意されたoutオブジェクト(JspWriterのインスタンス)に書き込むことで、画面に文字列を出力できます。</li>
+</ul>
+
+<h3>サーブレットの例</h3>
+以下のようなTest1.javaを作成しました。
+<h4>ソースコード</h4>
+<pre>
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/Test1")
+public class Test1 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public Test1() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Hello Servlet");
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+}
+</pre>
+
+<h4>実行結果</h4>
+http://127.0.0.1:8080/dynamic_web_alpha/Test1 にアクセスしてみます。
+<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/servlet.png">
+画像のとおり、「Hello Servlet」と表示されました。
+
+<h4>解説</h4>
+<ul>
+	<li>doGetメソッドとdoPostメソッドが実装箇所になります。今回はdoGetメソッドを実装し、doPostメソッドはdoGetメソッドを呼び出す形としました。</li>
+	<li>doGetメソッドはHttpServletRequestのインスタンスで要求を受け取ります。</li>
+	<li>また、HttpServletResponseに応答を書き込みます。</li>
+	<li>今回は「Hello Servlet」という文字列を応答に書き込みました。</li>
+</ul>
+
+<h2>まとめ</h2>
+JSP、サーブレットは商用Webアプリケーション開発の主流技術の一つです。
+特に画面(ユーザインターフェース)を作成に便利なため、
+Webアプリケーションプログラミング、Webデザインの分野で頻繁に用いられています。

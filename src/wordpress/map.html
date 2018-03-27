@@ -1,0 +1,146 @@
+<p>この記事ではMapインターフェースを説明します。
+Mapはインターフェースなので、そのものをインタンス化することはできません。
+Mapインターフェースを用いることで、<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/TreeMap.html">TreeMap</a>や<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/HashMap.html">HashMap</a>といったデータ構造を統一的に取り扱えます。</p>
+
+<h1>Mapインターフェースとは</h1>
+<ul>
+<li>Mapはキーと値を対応づけるデータ構造です。</li>
+<li>各キーは一つの値だけに対応づけられます。同一のキーを複数登録することはできません。</li>
+</ul>
+
+<p>Mapへのキーと値の登録の流れを追ってみます。</p>
+
+<ol>
+	<li>初期状態
+		<table border="1">
+		<tr><th>キー</th><th>値</th></tr>
+		</table>
+	</li>
+	
+	<li>キー「A」に対して、値「あいうえお」を登録します。
+		<table border="1">
+		<tr><th>キー</th><th>値</th></tr>
+		<tr><td>A</td><td>あいうえお</td></tr>
+		</table>
+	</li>
+	
+	<li>キー「B」に対して、値「かきくけこ」を登録します。
+		<table border="1">
+		<tr><th>キー</th><th>値</th></tr>
+		<tr><td>A</td><td>あいうえお</td></tr>
+	  <tr><td>B</td><td>かきくけこ</td></tr>
+		</table>
+	</li>
+	
+	<li>キー「A」に対して、値「さしすせそ」を登録します。上書き登録になります。
+		<table border="1">
+		<tr><th>キー</th><th>値</th></tr>
+		<tr><td>A</td><td>さしすせそ</td></tr>
+	  <tr><td>B</td><td>かきくけこ</td></tr>
+		</table>
+	</li>
+	
+</ol>
+
+<h1>Mapの書き方</h1>
+<ul>
+<li>Mapはインターフェースのため、直接インスタンス化できません。</li>
+<li>Mapインターフェースを実装するクラスを自作するか、</li>
+<li>HashMapやTreeMapのような適当な実装クラスを用います。
+</ul>
+
+<h2>Mapインターフェースを実装するクラスを自作する</h2>
+<ul>
+<li>自作クラスMyMapで、Mapインターフェースを実装します。</li>
+<li>getメソッドや、putメソッドなどを実装する必要があります。</li>
+</ul>
+<pre>
+public class MyMap&lt;K, V&gt; implements Map&lt;K, V&gt; {
+  @Override
+  public V get(Object key) {
+    // 略
+  }
+
+  @Override
+  public V put(Object key, Object value) {
+    // 略
+  }
+
+  // その他、Mapインターフェースの要求するメソッドを実装する必要がある。
+}
+
+public class UseMyMap {
+  public void useMyMap() {
+    Map&lt;String, String&gt; map = new MyMap&lt;String, String&gt;();
+    map.put(&quot;A&quot;, &quot;あいうえお&quot;);
+    map.put(&quot;B&quot;, &quot;かきくけこ&quot;);
+  }
+}
+</pre>
+
+<h2>HashMapクラスを用いる</h2>
+<ul>
+<li>既存のHashMapクラスを用いてインスタンスを作成します。</li>
+</ul>
+<pre>
+public class UseHashMap {
+  public void useHashMap() {
+    Map&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();
+    map.put(&quot;A&quot;, &quot;あいうえお&quot;);
+    map.put(&quot;B&quot;, &quot;かきくけこ&quot;);
+  }
+}
+</pre>
+
+<h1>実際に書いてみよう</h1>
+<p></p>
+
+<h2>ソースコード</h2>
+<p>名前(文字列)と年齢(整数)の対応をMapインターフェースで管理するプログラムです。</p>
+<pre>
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class MapDemo {
+  public static void main(String[] args) {
+    Map&lt;String, Integer&gt; nameAge = new TreeMap&lt;String, Integer&gt;();
+    nameAge.put(&quot;太郎&quot;, 40);
+    nameAge.put(&quot;次郎&quot;, 30);
+    printNameAge(nameAge);
+    nameAge = new HashMap&lt;String, Integer&gt;();
+    nameAge.put(&quot;三郎&quot;, 20);
+    nameAge.put(&quot;四郎&quot;, 10);
+    printNameAge(nameAge);
+  }
+
+  private static void printNameAge(Map&lt;String, Integer&gt; map) {
+    map.forEach((name, age) -&gt; {
+      System.out.println(name + &quot;は&quot; + age + &quot;歳です。&quot;);
+    });
+  }
+}
+</pre>
+
+<h2>実行結果</h2>
+<pre>
+太郎は40歳です。
+次郎は30歳です。
+四郎は10歳です。
+三郎は20歳です。
+</pre>
+
+<h2>解説</h2>
+<ul>
+<li>名前(文字列)と年齢(整数)の対応づける、Mapインターフェースの変数nameAgeを宣言します。</li>
+<li>最初はTreeMapでインスタンス化し、データを登録、表示します。</li>
+<li>次にHashMapでインスタンス化し、同様にデータを登録、表示します。</li>
+<li>注意点として、TreeMapでは登録順に表示されましたが、HashMapではそうではありません。</li>
+<li>Map実装には、キーの順序を保証するもの(例 TreeMap)と保証しないもの(例 HashMap)があります。</li>
+</ul>
+
+<h1>まとめ</h1>
+<ul>
+<li>Mapはインターフェースなので、それ自体を利用することはありませんが、TreeMapやHashMapといった便利なデータ構造の共通インターフェースを提供します。</li>
+<li>キーと値を対応づけて管理するようなケースでMapを用いると、効率よく実装できます。</li>
+</ul>

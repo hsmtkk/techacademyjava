@@ -1,0 +1,80 @@
+<p>この記事ではHashMapクラスを説明します。
+HashMapクラスを用いることで、データベースや辞書のようなデータ構造を表現できます。</p>
+
+<h1>HashMapクラスとは</h1>
+<ul>
+<li>HashMapとは、Mapインターフェースの実装クラスの一つです。</li>
+<li>実装にハッシュ表を用いていることが特徴です。</li>
+</ul>
+
+<h2>ハッシュ表とは</h2>
+<ul>
+<li>ハッシュ表とはキーと、それに対応する値を管理するための、データ構造の一つです。</li>
+<li>それぞれのキーは、一意なインデックス(索引)を持ちます。</li>
+<li>インデックスがわかれば、その値を高速に(※1)参照できます。</li>
+<li>キーからインデックスを求めるためにハッシュ関数(※2)を使用します。</li>
+</ul>
+
+<p>
+(※1)一般には表のサイズに依存しない速度で。
+格納するデータ量が増えても、参照に要する時間が変化しません。
+</p>
+
+<p>
+(※2)任意長のデータを、固定長のデータに対応づける関数。
+MD5、SHA-1、SHA-2といった実装があります。
+</p>
+
+<h1>HashMapの書き方</h1>
+<ul>
+<li>HashMapは<a href="https://docs.oracle.com/javase/tutorial/java/generics/types.html">ジェネリクス型</a>のため、キーと値の型を決めて宣言します。</li>
+<li>キーと対応する値を入れるにはputメソッドを使います。</li>
+<li>キーに対応する値を取り出すにはgetメソッドを使います。</li>
+<li>あるキーが含まれているか調べるにはcontainsKeyメソッドを使います。</li>
+<li>その他メソッドは<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/HashMap.html">公式リファレンス</a>を参照してください。</li>
+</ul>
+
+<h1>実際に書いてみよう</h1>
+<p>単語の出現回数を調べるプログラムです。</p>
+<h2>ソースコード</h2>
+<pre>
+import java.util.HashMap;
+import java.util.Map;
+
+public class HashMapDemo {
+  public static void main(String[] args) {
+    Map<String, Integer> wordCounter = new HashMap<String, Integer>();
+    String[] words = { "bravo", "alpha", "charlie", "bravo" };
+    for (String word : words) {
+      int count = 0;
+      if(wordCounter.containsKey(word)) {
+        count = wordCounter.get(word);
+      }
+      wordCounter.put(word, count + 1);
+    }
+    wordCounter.forEach((word, count) -> {
+      System.out.println("単語 " + word + " は " + count + " 回、出現しました。");
+    });
+  }
+}
+</pre>
+
+<h2>実行結果</h2>
+<pre>
+単語 bravo は 2 回、出現しました。
+単語 alpha は 1 回、出現しました。
+単語 charlie は 1 回、出現しました。
+</pre>
+
+<h2>解説</h2>
+<ul>
+<li>単語(文字列)と出現回数(整数)を対応づけるため、キーの型をString、値の型をIntegerとします。</li>
+<li>ある単語wordに対し、containsKeyメソッドで既出か調べます。</li>
+<li>既出であれば、getメソッドで、これまでの出現回数を取得します。</li>
+<li>出現回数に1を足し、putメソッドで出現回数を再登録します。</li>
+<li>全ての単語を数え終わったら、forEachメソッドでキーと値を取り出し、表示します。</li>
+</ul>
+
+<h1>まとめ</h1>
+<p>HashMapを用いることで、キーに対応する値を高速に取り出せます。
+住所録データベース(氏名と住所を対応づけ)を作成したり、辞書を作成したりするのに便利です。</p>

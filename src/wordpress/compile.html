@@ -1,0 +1,97 @@
+<p>この記事ではJavaプログラムにおけるコンパイルを説明します。</p>
+
+<h1>コンパイルとは</h1>
+<ul>
+<li>一般にコンパイルとは、ソースコードファイル(人間の読み書きできる形式)を、コンピュータの実行できるプログラムファイルに変換することを指します。</li>
+<li>Javaにおけるコンパイルとは、ソースコードファイル(.java)をクラスファイル(.class)に変換することを指します。</li>
+<li>クラスファイルをJVM(Java Virtual Machine, Java仮想マシン)に読み込むことで、Javaプログラムを実行できます。</li>
+</ul>
+
+<ul> 
+<li>クラスファイルはプラットフォームに依存しません。</li>
+<li>例えば、Windows環境でコンパイルしてできあがったクラスファイルを、Mac環境で実行できます。</li>
+</ul>
+
+<h2>ソースコードファイルとクラスファイルの違い</h2>
+<ul>
+<li>ソースコードファイルは人間が読み書きすることを前提にした形式です。</li>
+<li>一方クラスファイルはバイトコードとも言い、機械(コンピュータ)が読むことを前提にした形式です。</li>
+<li>一般に、クラスファイルを直接読み書きすることはありません。</li>
+</ul>
+
+<h1>実際にやってみよう</h1>
+<h2>環境</h2>
+この記事は以下の環境を前提としています。
+<ul>
+<li>Windows 10 64ビット版</li>
+<li>JDK 10</li>
+</ul>
+
+<h2>コマンドラインでコンパイルする方法</h2> 
+<ol>
+<li>ソースコード C:\Users\user\Documents\src\HelloWorld.java をコンパイルするとします。</li>
+<li>コマンドプロンプトを開きます。</li>
+<li>次のコマンドでソースコードを置いてあるフォルダに移動します。 
+cd C:\Users\user\Documents\src</li>
+<li>次のコマンドでjavaファイルをクラスファイルにコンパイルします。
+javac HelloWorld.java</li>
+<li>コンパイルに成功すると、 HelloWorld.class ファイルができあがります。</li>
+<li>次のコマンドでプログラムを実行します。
+java HelloWorld</li>
+</ol>
+
+<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/compile.png">
+
+<h2>Eclipseでコンパイルする方法</h2> 
+<ul>
+<li>Eclipseはデフォルトで自動でビルド(※)する設定となっています。</li>
+<li>設定を無効化している場合は、画面上部のメニューを選択し、手動でビルドします。ショートカットコマンドはCtrl-bです。</li>
+</ul> 
+(※)関連するソースコードをまとめてコンパイルすること。
+
+<h1>ありがちなエラー</h1> 
+<h2>javacコマンドが見つからない</h2> 
+<ul>
+<li>症状: javac と入力すると以下のエラーメッセージが表示されました。
+<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/javac-not-found.png"></li>
+<li>原因: javacプログラムの置かれたフォルダにパスが通っていません。</li>
+<li>対策: javacプログラムの置かれたフォルダにパスを通します。
+<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/path-env.png"></li>
+</ul>
+
+<h2>シンボルを発見できない</h2>
+<ul>
+<li>症状: ソースコードをコンパイルすると以下のようなエラーになりました。
+<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/symbol-not-found.png"></li>
+<li>原因: 未定義の変数を使用しています。
+(自分では正しいと思っていても)変数名のタイプミスで発生しがちです。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/symbol-not-found-source1.png"></li>
+<li>対策: 変数が定義済か確認します。</li>
+</ul>
+
+<h2>構文誤り その1</h2>
+<ul>
+<li>症状: ソースコードをコンパイルすると以下のようなエラーになりました。
+<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/paren-mismatch.png"></li>
+<li>原因: 開きかっこと閉じかっこが対応していません。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/paren-mismatch-source.png"></li>
+<li>対策: かっこの対応を訂正します。
+</ul>
+
+<h2>構文誤り その2</h2> 
+<ul>
+<li>症状: ソースコードをコンパイルすると以下のようなエラーになりました。
+<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/missing-semicolon.png"></li>
+<li>原因: 行末のセミコロンが抜けています。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/missing-semicolon-source.png"></li>
+<li>対策: 行末にセミコロンを追加します。</li>
+</ul>
+
+<h2>参考</h2>
+<ul>
+<li>Eclipseでソースコードを記述している場合、エディタ上でこれらミスをわかりやすく警告してくれます。</li>
+<li>警告メッセージをヒントに誤りを訂正します。</li>
+</ul>
+
+<h1>まとめ</h1>
+<ul>
+<li>ソースコードを実際に動作するプログラムに変換するため、Java開発ではコンパイルを繰り返し行います。</li>
+<li>効率的に開発するため、Eclipseのような統合開発環境を使ったり、<a href="http://ant.apache.org/">Ant</a>や<a href="https://maven.apache.org/">Maven</a>のようなビルドツールを使ったりするのが一般的です。</li>
+</ul>

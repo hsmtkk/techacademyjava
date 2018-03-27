@@ -1,0 +1,124 @@
+この記事ではJavaで正規表現を使う方法を説明します。
+文字列の検索や置換に幅広く活用できます。
+
+<h2>正規表現とは</h2>
+正規表現は文字列の集合(パターン)を表す記法です。
+特にプログラミングでは、以下のような用途で正規表現を用います。
+<ul>
+	<li>特定のパターンにマッチする文字列を検索する。</li>
+	<li>マッチした文字列を別の文字列に置き換える。</li>
+</ul>
+
+<h2>正規表現の書き方</h2>
+
+<h3>正規表現の文法</h3>
+
+たとえば「ab+c」という正規表現があります。
+「+」という記号は「1回以上の繰り返し」をあらわします。
+従って、これは「a」「b 1回以上」「c」という文字列にマッチします。
+
+<ul>
+	<li>マッチする例</li>
+		<ul>
+			<li>abc</li>
+			<li>abbc</li>
+			<li>abbbc</li>
+		</ul>
+	<li>マッチしない例</li>
+		<ul>
+			<li>ac</li>
+			<li>abb</li>
+			<li>bbc</li>
+		</ul>
+</ul>
+
+詳細は<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/regex/Pattern.html">公式のリファレンス</a>を参照してください。
+
+<h3>Javaでの正規表現の記述方法</h3>
+
+<ol>
+	<li>正規表現パターンをコンパイルし、Patternオブジェクトを生成します。</li>
+	<li>正規表現を適用したい文字列を渡し、Matcherオブジェクトを生成します。</li>
+	<li>Matcherにより、検索・置換・分割を行います。</li>
+</ol>
+
+
+具体的なソースコードは以下の通りです。
+
+<pre>
+Pattern p = Pattern.compile("a*b");
+Matcher m = p.matcher("aaaaab");
+boolean b = m.matches();
+</pre>
+
+この場合、パターン「a*b」に、文字列「aaaaab」がマッチします。 従ってboolean bの値は「true」になります。   
+
+<h3>文字列へのマッチ方法</h3>
+Matcherでよく使うのは以下3つの操作です。ケースに応じて使い分けます。
+<ul>
+	<li>findメソッドは、入力文字列を走査して、パターンとマッチする次の部分文字列を検索します。</li>
+	<li>matchesメソッドは、入力文字列全体とパターンをマッチします。</li>
+	<li>lookingAtメソッドは、入力文字列の先頭から始めてパターンをマッチします。</li>
+</ul>
+
+<h2>実際に書いてみよう</h2>
+<ul>
+	<li>このプログラムでは正規表現「ab+c」を用います。</li>
+	<li>マッチ方法にはfindメソッドを用います。</li>
+	<li>与えられた文字列がマッチした場合、マッチした部分の開始位置と終了位置を表示します。</li>
+</ul>
+	
+<h3>ソースコード</h3>
+
+<pre>
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Regex0 {
+  public static void main(String[] args) {
+    String [] texts = {"abc", "xabbcx", "ac", "bbc"};
+    for(String text: texts){
+      patternMatch(text);
+    }
+  }
+  
+  private static void patternMatch(String text) {
+    Pattern pattern = Pattern.compile("ab+c");
+    Matcher matcher = pattern.matcher(text);
+    if(matcher.find()) {
+      int start = matcher.start();
+      int end = matcher.end();
+      System.out.println("文字列 " + text + " はマッチしました。");
+      System.out.println("開始位置:" + start + ", 終了位置: " + end);
+    }
+    else {
+      System.out.println("文字列 " + text + " はマッチしませんでした。");
+    }
+  }
+}
+</pre>
+
+<h3>実行結果</h3>
+
+<pre>
+文字列 abc はマッチしました。
+開始位置:0, 終了位置: 3
+文字列 xabbcx はマッチしました。
+開始位置:1, 終了位置: 5
+文字列 ac はマッチしませんでした。
+文字列 bbc はマッチしませんでした。
+</pre>
+
+<h3>解説</h3>
+<ul>
+	<li>15行目でPatternオブジェクトをコンパイルしています。</li>
+	<li>「ab+c」という正規表現なので、「a」「b 1回以上」「c」という文字列の並びにマッチします。</li>
+	<li>文字列「abc」に対して、マッチします。開始位置0、終了位置3という結果を出力します。</li>
+	<li>findメソッドのため、文字列「xabbcx」に対してもマッチします。</li>
+	<li>文字列「ac」「bbc」に対しては、マッチしません。</li>
+</ul>
+
+<h2>まとめ</h2>
+正規表現を活用することで、大量の文書からメールアドレスを抽出したり、
+ユーザの入力した電話番号が正しい形式か判定したりできます。
+文字列を検索したり置換したりするようなケースでは、正規表現を活用できないか考えてみてください。

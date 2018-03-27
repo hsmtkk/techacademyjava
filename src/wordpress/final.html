@@ -1,0 +1,135 @@
+<p>この記事ではJavaプログラムのfinal修飾子を説明します。
+final修飾子は、クラス・メソッド・変数の不変性を示します。
+対象の予期せぬ変更を防ぐために用います。</p>
+
+<h1>final修飾子の書き方</h1>
+<p>final修飾子の付け方には、クラス、メソッド、変数に付ける3パターンがあります。</p>
+<h2>クラスにfinal修飾子を付与する</h2>
+<ul>
+<li>以下のようにclassキーワードの前にfinal修飾子を記述します。</li>
+<li>final修飾子を付けたクラスは継承できません。</li>
+</ul>
+<pre>
+final class MyClass {
+  // 略
+}
+</pre>
+
+<p>以下のような理由でクラスをfinal修飾します。</p>
+<ul>
+<li>マルチスレッドプログラムで、不変なクラスを作成したい場合。スレッド間での共有データに対する競合を防ぎます。</li>
+<li>staticメソッドだけを含むユーティリティクラスを作成する場合。</li>
+<li>特定のクラスが実行速度のボトルネックになっている場合。JVM(Java仮想マシン)でオブジェクトの取扱が容易になるので、実行速度が向上します。</li>
+</ul>
+
+<h2>メソッドにfinal修飾子を付与する</h2>
+<ul>
+<li>以下のようにメソッド名の前にfinal修飾子を記述します。</li>
+<li>final修飾子を付けたメソッドは子クラスでオーバーライド(※)できません。</li>
+</ul>
+
+(※)子クラスで、親クラスのメソッドを再定義(上書き)すること。
+
+<pre>
+class MyClass {
+  final myMethod(){
+    // 略
+  }
+}
+</pre>
+
+<p>あるメソッドの動作がそのクラスにとってクリティカルで、子クラスで動作を変更されると問題が生じる場合に、メソッドをfinal修飾します。</p>
+
+<h2>変数にfinal修飾子を付与する</h2>
+<ul>
+<li>以下のように変数名の前にfinal修飾子を記述します。</li>
+<li>final修飾子を付けると定数になります。(変更できません)</li>
+</ul>
+
+<pre>
+class MyClass {
+  void myMethod(){
+    final int a = 0;
+  }
+}
+</pre>
+
+<p>プログラム中で変更すべきでない値を宣言する場合に、変数をfinal修飾します。</p>
+
+<h1>実際にやってみよう</h1>
+
+<h2>クラスにfinal修飾子を付与する</h2>
+
+<h3>ソースコード</h3>
+<pre>
+final class MyClass {
+}
+
+class MySubClass extends MyClass {
+}
+</pre>
+
+<h3>実行結果</h3>
+<p>以下のメッセージでコンパイルエラーになりました。</p>
+<pre>
+FinalClassDemo.java:4: error: cannot inherit from final MyClass
+class MySubClass extends MyClass {
+                         ^
+1 error
+</pre>
+
+<h3>解説</h3>
+<p>エラーメッセージの通り、final修飾子を付けたクラスは継承できません。</p>
+
+<h2>メソッドにfinal修飾子を付与する</h2>
+<h3>ソースコード</h3>
+<pre>
+class MyClass {
+  final public void myMethod() {
+  }
+}
+
+class MySubClass extends MyClass {
+  public void myMethod() {
+  }
+}
+</pre>
+
+<h3>実行結果</h3>
+<p>以下のメッセージでコンパイルエラーになりました。</p>
+<pre>
+FinalMethodDemo.java:7: error: myMethod() in MySubClass cannot override myMethod() in MyClass
+        public void myMethod() {
+                    ^
+  overridden method is final
+1 error
+</pre>
+
+<h3>解説</h3>
+<p>エラーメッセージの通り、final修飾子を付けたメソッドはオーバーライドできません。</p>
+
+<h2>変数にfinal修飾子を付与する</h2>
+<h3>ソースコード</h3>
+<pre>
+class MyClass {
+  void myMethod() {
+    final int a = 0;
+    a = 1;
+  }
+}
+</pre>
+
+<h3>実行結果</h3>
+<p>以下のメッセージでコンパイルエラーになりました。</p>
+<pre>
+FinalVariableDemo.java:4: error: cannot assign a value to final variable a
+                a = 1;
+                ^
+1 error
+</pre>
+
+<h3>解説</h3>
+<p>エラーメッセージの通り、final修飾子を付けた変数には再代入できません。</p>
+
+<h1>まとめ</h1>
+<p>final修飾子を用いることで、クラス・メソッド・変数の不用意な変更をブロックでき、プログラム設計者の意図を示せます。</p>

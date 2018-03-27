@@ -1,0 +1,62 @@
+<p>この記事ではJavaの整数型の一つlong型について説明します。
+int型(32ビット整数)の範囲におさまらないような、大きな整数を扱う時にlong型(64ビット整数)を使います。</p>
+
+<h1>long型とは</h1>
+<ul>
+<li>long型は64ビット整数です。</li>
+<li>最大値は2<sup>63</sup>-1です。(Long.MAX_VALUE)</li>
+<li>最小値は-2<sup>63</sup>です。(Long.MIN_VALUE)</li>
+</ul>
+
+<h2>なぜlong型が必要なのか</h2>
+<ul>
+<li>Javaでよく使うのはint型、32ビット整数です。</li>
+<li>最大値は2<sup>31</sup>-1です。(Integer.MAX_VALUE)</li>
+<li>最小値は-2<sup>31</sup>です。(Integer.MIN_VALUE)</li>
+<li>この範囲を超過すると(桁あふれ、オーバーフロー)、正しく計算を行えません。</li>
+<li>このように大きな整数(int型におさまらないもの)を扱う時にlong型を使います。</li>
+</ul>
+
+<h1>long型の書き方</h1>
+<p>intと同じように変数名の前で型を指定します。</p>
+<pre>
+long n = 0;
+</pre>
+
+<h1>実際に書いてみよう</h1>
+<p>int型におさまらないような、大きな整数を扱う例です。</p>
+
+<h2>ソースコード</h2>
+<pre>
+public class LongDemo {
+  public static void main(String [] args) {
+    int m = 2147483647;
+    System.out.println(m);
+    
+    m += 1;
+    System.out.println(m);
+
+    long n = 2147483647;
+    System.out.println(n);
+  
+    n += 1;
+    System.out.println(n);
+  }
+}
+</pre>
+
+<h2>実行結果</h2>
+<pre>
+2147483647
+-2147483648
+2147483647
+2147483648
+</pre>
+
+<h2>解説</h2>
+<ul>
+<li>int型の変数mを宣言します。初期値は2147483647とします。これはint型の最大値です。</li>
+<li>mをインクリメントします。本来、2147483648になるべきですが、オーバーフローが発生し、<b>-2147483648</b>になってしまいました。</li>
+<li>long型の変数nを宣言します。同様に初期値は2147483647とします。</li>
+<li>nをインクリメントします。今度は正しく計算でき、2147483648になりました。</li>
+</ul>

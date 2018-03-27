@@ -1,0 +1,66 @@
+	この記事では、JavaでWebアプリケーションを作成する時の主流ソフトウェアTomcatを紹介します。
+	また、Tomcatのインストール手順、サンプルWebアプリケーションのデプロイ方法を述べます。
+	
+	<h2>Tomcatとは</h2>
+	TomcatはサーブレットやJSPを実行することができるオープンソースのサーブレットコンテナです。
+	サーブレットとは、Webサーバ上でWebページを動的に生成したり、データを処理したりするための、Javaプログラムです。
+	サーブレットコンテナとはサーブレットを実行するためのソフトウェアです。
+	本記事で紹介するTomcatの他に、<a href="https://www.eclipse.org/jetty/">Jetty</a>, <a href="http://www.oracle.com/technetwork/jp/middleware/weblogic/overview/index.html">Oracle WebLogic Server</a>, <a href="https://www.redhat.com/ja/technologies/jboss-middleware/application-platform">JBoss</a>といったサーブレットコンテナがあります。
+	
+	<h2>Java, Aapche, Tomcatの関係</h2>
+	TomcatはApache HTTP Server(あるいは単にApache)とよく組み合わせて使われます。
+	この場合、主に下表のような役割分担になっています。
+	
+	<table border="1">
+		<tr><th>ソフトウェア</th><th>役割</th><th>処理内容</th></tr>
+		<tr><td>Apache</td><td>Webサーバ</td><td>静的なWebページ(html)を配信する。</td></tr>
+		<tr><td>Tomcat</td><td>アプリケーションサーバ</td><td>サーブレットを用いて動的なWebページを生成する。</td></tr>
+	</table>
+	
+	前述の通りJavaサーブレットコンテナは複数ありますが、Tomcatはその中でも最も有名なコンテナの一つです。
+	TomcatそのものもJavaで記述されています。
+	
+	<h2>実際にインストールしてみよう</h2>
+	この記事では、以下の環境、バージョンを使用します。
+	<ul>
+		<li>Windows 10 64ビット</li>
+		<li>Java SE Runtime Environment 9.0.4</li>
+		<li>Tomcat 9.0.6</li>
+	</ul>
+	
+	<h3>(未インストールの場合)Javaのダウンロードとインストール</h3>
+	<ol>
+		<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JREをダウンロード</a>してインストールします。</li>
+		<li>「システムのプロパティ」を開き、「環境変数」ボタンをクリックします。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/java0.png"></li>
+		<li>「システム環境変数」で「新規」ボタンをクリックします。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/java1.png"></li>
+		<li>「変数」にJAVA_HOME、「値」にC:\Program Files\Java\jre-9.0.4(※)を設定します。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/java2.png">	(※)Javaをインストールしたフォルダです。</li>
+		<li>「システム環境変数」にJAVA_HOMEの追加されたことを確認します。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/java3.png"></li>
+	</ol>
+
+	
+	<h3>Tomcatのダウンロードとインストール</h3>
+	<ol>
+		<li><a href="https://tomcat.apache.org/download-90.cgi">Tomcatをダウンロード</a>します。</li>
+		<li>ダウンロードしたzipファイルを適当なフォルダに展開します。ここではC:\tomcatとします。
+		<li>コマンドプロンプトを開き、C:\tomcat\binに移動します。</li>
+		<li>startup.batと入力し、Tomcatを起動します。</li>	
+		<li>メッセージとともにTomcatが起動します。</li>
+	</ol>
+	
+	<h3>Tomcatの動作確認</h3>
+	<ol>
+		<li>Webブラウザでhttp://127.0.0.1:8080にアクセスします。</li>
+		<li>Tomcatの画面が表示されればインストールと起動は成功です。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/tomcat2.png"></li>
+	</ol>
+	
+	<h3>Webアプリケーションのデプロイ</h3>
+	<ol>
+		<li><a href="https://tomcat.apache.org/tomcat-6.0-doc/appdev/sample/sample.war">サンプルのアプリケーションをダウンロード</a>します。</li>
+		<li>ダウンロードしたsample.warファイルをC:\tomcat\webappsフォルダにコピーします。</li>
+		<li>Webブラウザでhttp://127.0.0.1:8080/sampleにアクセスします。</li>
+		<li>Sample "Hello, World" Applicationの画面が表示されればアプリケーションのデプロイは成功です。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/tomcat3.png"></li>
+	</ol>
+	
+	<h2>まとめ</h2>
+	TomcatはWebアプリケーションの実行環境として、小規模環境から大規模ミッションクリティカルな分野まで、幅広く利用されています。
+	この記事ではTomcatの特徴、そのインストール手順、サンプルのWebアプリケーションのデプロイ手順を説明しました。

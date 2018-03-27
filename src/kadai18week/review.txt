@@ -1,9 +1,27 @@
-曜日の判定に「生の数字」(マジックナンバーといいます)を使っています。
+Calendarクラス、DateTime APIでの実装、ともにOKです。
+日付の操作をよく理解されていると思います。
+Calendar.MONDAY,DayOfWeek.MONDAYなどの定数の利用もたいへん素晴しいです。
+
+前半、LocalDateTimeでの実装、OKです。
+
+後半、Calendarでの実装、たいへん惜しいのですが、1点、修正しましょう。
+
+```
+		if(day == 1 || day == 7) {
+			System.out.println("今日はおやすみです");
+		} else if(day >= 2 && day <= 6) {
+			System.out.println("お仕事頑張りましょう");
+		}
+```
+
+のように、1や7といった「生の数字」(マジックナンバーといいます)を使っています。
 これはコードの可読性を下げるので、避けたほうが良いです。
 （時間がたってから見返したとき、あるいは他人が見たときに、わかりづらい。）
 
-Calendar、DayOfWeekクラスには、曜日をあらわす定数が用意されています。これをうまく活用しましょう。
+Calendarクラスには、曜日をあらわす定数が用意されています。これをうまく活用しましょう。
 
+(参考)
+https://docs.oracle.com/javase/jp/7/api/java/util/Calendar.html#SUNDAY
 
 
 # DateクラスとCalendarクラスを使って実装
