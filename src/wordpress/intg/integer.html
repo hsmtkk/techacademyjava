@@ -1,0 +1,65 @@
+<h2>Javaプログラムにおけるint型とは</h2>
+Javaプログラムにおけるint型とは、整数を表すプリミティブ型です。
+オブジェクトで表現したい場合、ラッパークラスのIntegerを使います。
+
+Javaのint型は32ビットのため、-2<sup>31</sup>以上、2<sup>31</sup>-1以下の整数を表現できます。
+これらの値は、<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Integer.html#MIN_VALUE">Integer.MIN_VALUE</a>, <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Integer.html#MAX_VALUE">Integer.MAX_VALUE</a>で参照できます。
+この範囲を超える整数を扱いたい場合は、long型(64ビット整数)を使います。
+
+<h2>int型の使い方</h2>
+以下のように変数の型にintを指定します。
+<pre>
+int a = 0;
+Integer b = new Integer(1);
+</pre>
+
+<h2>実際に書いてみよう</h2>
+整数に関する四則演算を試してみます。
+また、文字列を数字として解析(パース)することを試みます。
+
+<h3>ソースコード</h3>
+<pre>
+public class IntDemo {
+  public static void main(String[] args) {
+    int x = 5;
+    int y = 3;
+    System.out.println(x + y);
+    System.out.println(x - y);
+    System.out.println(x * y);
+    System.out.println(x / y);
+    System.out.println(x % y);
+
+    String s = "123";
+    int a = Integer.parseInt(s);
+    System.out.println("文字列" + s + "を数字で表すと" + a);
+
+    s = "FF";
+    a = Integer.parseInt(s, 16);
+    System.out.println("文字列" + s + "を数字で表すと" + a);
+    
+    s = "xyz";
+    a = Integer.parseInt(s);
+    System.out.println("文字列" + s + "を数字で表すと" + a);
+  }
+}
+</pre>
+
+<h3>実行結果</h3>
+<pre>
+8
+2
+15
+1
+2
+文字列123を数字で表すと123
+文字列FFを数字で表すと255
+Exception in thread "main" java.lang.NumberFormatException: For input string: "xyz"
+</pre>
+
+<h3>解説</h3>
+・整数aを5、整数bを3で初期化します。
+・足し算、引き算、かけ算、割り算(商と余り)の計算を行えます。
+
+・文字列"123"を数字として解析すると、数字123を得られます。
+・parseIntメソッドは基数を指定できます。文字列"FF"を16進数として解析すると、数字255を得られます。
+・文字列"xyz"は数字として解析できないので、NumberFormatExceptionの例外が発生します。

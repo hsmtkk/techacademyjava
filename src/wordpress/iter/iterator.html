@@ -1,0 +1,95 @@
+<h2>イテレータとは</h2>
+イテレータは、集合の要素に順番にアクセスする時に使用するインターフェースです。
+集合にはリスト、セット、マップなど複数の種別がありますが、イテレータはそれらにアクセスするための、共通の仕組みを提供します。
+イテレータを用いることで、個別の実装を意識せずに、要素へのアクセスを自然に記述できます。
+
+<h2>イテレータの書き方</h2>
+<h3>既存のクラスからイテレータを得る</h3>
+Iterableインターフェースを実装するクラスのiteratorメソッドを呼び出すと、イテレータを得られます。
+(例)ArrayList, HashSet, LinkedList, TreeSet
+
+<pre>
+ArrayList<T> list = new ArrayList<T>();
+Iterator<T> iterator = list.iterator();
+</pre>
+
+<h3>自作のクラスでイテレータを実装する</h3>
+Iteratorインターフェースを実装クラスでは以下2つのメソッドを実装しなければなりません。
+・hasNextメソッド: 次の要素があればtrue、なければfalseを返します。
+・nextメソッド: 次の要素を返します。
+
+<pre>
+class MyClass implements Iterator{
+  public boolean hasNext() {
+    // 略
+  }
+  public Object next() {
+    // 略
+  }
+}
+</pre>
+
+<h2>実際に書いてみよう</h2>
+・ArrayList、HashSetを用いて、イテレータの動作を確認します。
+・どちらのクラスもiteratorメソッドを呼び出すとイテレータを得られます。
+
+<h3>ソースコード</h3>
+<pre>
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+public class IteratorDemo {
+
+  public static void main(String[] args) {
+    // リストを作成する
+    List<String> list = new ArrayList<String>();
+    list.add("alpha");
+    list.add("bravo");
+    list.add("charlie");
+
+    // イテレータを取得し、メソッドを呼び出す
+    printIterable(list.iterator());
+
+    System.out.println("-----");
+
+    // セットを作成する
+    Set<String> set = new HashSet<String>();
+    set.add("delta");
+    set.add("echo");
+    set.add("foxtrot");
+
+    // イテレータを取得し、メソッドを呼び出す
+    printIterable(set.iterator());
+  }
+
+  private static void printIterable(Iterator<String> iterator) {
+    while (iterator.hasNext()) {
+      String s = iterator.next();
+      System.out.println(s);
+    }
+  }
+}
+</pre>
+
+
+<h3>実行結果</h3>
+<pre>
+alpha
+bravo
+charlie
+-----
+foxtrot
+delta
+echo
+</pre>
+
+<h3>解説</h3>
+・ArrayListを作成し、要素を代入します。
+・iteratorメソッドを呼び出しイテレータを得ます。
+・printIterableメソッドの中で、イテレータを使って、要素に順番にアクセスします。
+
+・同様にHashSetを作成し、要素を代入します。
+・HashSetもiteratorメソッドでイテレータを得られるので、printIterableメソッドを適用できます。

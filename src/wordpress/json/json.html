@@ -1,0 +1,101 @@
+<h2>JSONとは</h2>
+JSONとはJavaScript Object Notationの略で、軽量のデータ交換フォーマットです。
+人間にとって読み書き容易で、機械(コンピュータ)にとっても解析しやすい型式です。
+特にJavaScript言語との親和性が良いですが、Java含む他のプログラミング言語でも頻繁に利用されています。
+
+JavaでJSONを扱うため、2つの便利なライブラリがあります。
+1. <a href="https://github.com/google/gson">Gson</a>
+2. <a href="https://github.com/FasterXML/jackson">Jackson</a>
+
+この記事では前者のGsonを使います。
+
+<h2>Gsonライブラリのインストール</h2>
+以下の手順で、EclipseでGsonライブラリを使えるように設定します。
+
+1. <a href="http://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.2/">Gsonのサイト</a>からgson-2.8.2.jarファイルをダウンロードします。
+2. Eclipseでダウンロードしたjarファイルへの参照を追加します。
+3. ビルドパスの編集画面を開きます。
+4. "Add JARs"を選択します。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/buildpath0.png">
+5. gson-2.8.2.jarを選択します。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/buildpath1.png">
+6. gson-2.8.2.jarが追加されたことを確認します。<img src="http://writer.techacademy.jp/wp-content/uploads/2018/03/buildpath2.png">
+
+<h2>JavaでのJSONの使い方</h2>
+はじめにGsonライブラリをインポートします。
+
+<pre>
+import com.google.gson.Gson;
+</pre>
+
+次にGsonクラスのインスタンスを作成します。
+Gsonクラスには、以下2つのメソッドが用意されています。
+1. toJson: JavaオブジェクトをJSON文字列に変換する。
+2. fromJson: JSON文字列をJavaオブジェクトに変換する。
+
+例えば、String型の配列をJSON文字列に変換し、再度、逆変換してみます。
+<pre>
+Gson gson = new Gson();
+String [] stringArray = {"alpha", "bravo", "charlie"};		
+
+// JavaオブジェクトをJSON文字列に変換する
+String jstr = gson.toJson(stringArray);
+
+// JSON文字列をJavaオブジェクトに変換する
+stringArray = gson.fromJson(jstr, String[].class);
+</pre>
+
+<h2>実際に書いてみよう</h2>
+<h3>ソースコード</h3>
+・自作のPersonクラスの配列を作成します。
+・上で作成した配列をJSON文字列に変換します。
+・JSON文字列を再度、Personクラスの配列に戻します。
+
+<pre>
+import com.google.gson.Gson;
+
+public class JsonDemo {
+
+  public static void main(String[] args) {
+    // Personクラスの配列を作成する
+    Person[] persons = { new Person("alpha", 10), new Person("bravo", 20) };
+    
+    Gson gson = new Gson();
+    
+    // Personクラスの配列を、JSON文字列に変換する
+    String jstr = gson.toJson(persons, Person[].class);
+    System.out.println(jstr);
+
+    // JSON文字列を、Personクラスの配列に変換する
+    persons = gson.fromJson(jstr, Person[].class);
+    for (Person p : persons) {
+      System.out.println(p);
+    }
+  }
+}
+
+class Person {
+  private String name;
+  private int age;
+
+  public Person(String name, int age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  public String toString() {
+    return "name=" + name + ", age=" + age;
+  }
+}
+</pre>
+
+<h3>実行結果</h3>
+<pre>
+[{"name":"alpha","age":10},{"name":"bravo","age":20}]
+name=alpha, age=10
+name=bravo, age=20
+</pre>
+
+<h3>解説</h3>
+・Personクラスの配列personsを作成します。
+・Gsonクラス、toJsonメソッドで、JSON文字列に変換し、表示します。
+・Gsonクラス、fromJsonメソッドで、Personクラスの配列に戻します。
+・配列の要素を1個ずつ表示します。

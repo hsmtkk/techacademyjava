@@ -1,0 +1,81 @@
+<h2>Fileクラスとは</h2>
+Fileは、ファイルまたはフォルダ(ディレクトリ)を表すクラスです。
+ファイルの読み書きや、フォルダ中のファイル一覧の取得といった、ファイルシステムの操作全般で使用します。
+
+<h2>Fileクラスの書き方</h2>
+操作対象のパスを引数とし、コンストラクタを呼び出します。
+<pre>
+File f = new File("C:\\path\\to\\file");
+</pre>
+
+以降、Fileインスタンスを用いて各種操作を行います。
+<pre>
+String name = f.getName(); // 名前を取得する
+
+boolean b = f.exists(); // 対象が存在すればtrue
+
+f.delete(); // 対象を削除する。
+
+boolean b = f.isFile(); // ファイルならばtrue
+boolean b = f.isDirectory(); // フォルダならばtrue
+
+int length = f.length(); // サイズを取得する
+</pre>
+
+詳細は<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/File.html">公式のリファレンス</a>を参照してください。
+
+<h2>実際に書いてみよう</h2>
+指定したフォルダ配下のフォルダ、ファイル一覧を表示するプログラムです。
+種類(フォルダかファイルか)、名前、サイズを表示します。
+
+<h3>ソースコード</h3>
+<pre>
+import java.io.File;
+import java.nio.file.Paths;
+
+public class FileDemo {
+  public static void main(String[] args) {
+    // 一覧を取得する対象の親フォルダ
+    String targetFolderPath = "C:\\Program Files\\Java\\jdk-10";
+    File targetFolder = new File(targetFolderPath);
+
+    // フォルダ中の子フォルダ・子ファイル一覧を取得し、ループする
+    for (String name : targetFolder.list()) {
+      // 親フォルダと、子フォルダ・子ファイル名を結合し、絶対パスとする
+      String path = Paths.get(targetFolderPath, name).toString();
+      File f = new File(path);
+
+      // フォルダかファイルかを判定する
+      String type = "";
+      if (f.isFile()) {
+        type = "ファイル";
+      } else if (f.isDirectory()) {
+        type = "フォルダ";
+      }
+
+      // 種別、名前、サイズを表示する
+      System.out.println(type + " " + name + " " + f.length());
+    }
+  }
+}
+</pre>
+
+<h3>実行結果</h3>
+<pre>
+フォルダ bin 65536
+フォルダ conf 4096
+ファイル COPYRIGHT 3244
+フォルダ include 4096
+フォルダ jmods 40960
+フォルダ legal 40960
+フォルダ lib 8192
+ファイル README.html 158
+ファイル release 1681
+</pre>
+
+<h3>解説</h3>
+・Fileインスタンスを作成します。コンストラクタの引数には、一覧を取得する対象の親フォルダを指定します。
+・listメソッドで、子フォルダ、子ファイルの一覧を取得し、for文でループします。
+・再びFileインスタンスを作成します。コンストラクタの引数には、子フォルダ、子ファイルを指定します。
+・isFile, isDirectoryメソッドで、フォルダかファイルかを判定します。
+・種別、名前、サイズを表示します。

@@ -1,0 +1,70 @@
+<h2>Listクラス、containsメソッドとは</h2>
+Listクラス、containsメソッドは、リストが特定の要素を含むかどうか判定するメソッドです。
+ArrayList, LinkedListなど、Listインターフェースを実装するクラスで利用できます。
+リストにためこんだ要素を検索したり、重複を除きながらリストに要素を追加したりするのに使います。
+
+<h2>containsメソッドの書き方</h2>
+以下のように引数にオブジェクトを指定し、containsメソッドを呼びます。
+この例ではString型のリストなので、containsの引数もString型とします。
+<pre>
+List<String> lst = new ArrayList<String>();
+lst.add("あいうえお");
+boolean b = lst.contains("あいうえお");
+</pre>
+
+・リストが引数に指定したオブジェクトを含む場合、戻り値はtrueです。
+・含まない場合、戻り値はfalseです。
+
+<h2>実際に書いてみよう</h2>
+文字列のリストを作成します。
+containsメソッドを用いて、特定の文字列がリストに含まれているか判定します。
+
+<h3>ソースコード</h3>
+<pre>
+import java.util.ArrayList;
+import java.util.List;
+
+public class ListContainsDemo {
+
+  public static void main(String[] args) {
+    List<String> lst = new ArrayList<String>();
+    lst.add("あいうえお");
+    lst.add("かきくけこ");
+    lst.add("さしすせそ");
+
+    String[] searchTargets = { "かきくけこ", "たちつでと" };
+    for (String s : searchTargets) {
+      if (lst.contains(s)) {
+        System.out.println("リストは以下の要素を含みます: " + s);
+      } else {
+        System.out.println("リストは以下の要素を含みません: " + s);
+      }
+    }
+
+    List<String> anotherList = new ArrayList<String>();
+    lst.add("かきくけこ");
+    lst.add("さしすせそ");
+    System.out.println(lst.containsAll(anotherList));
+  }
+}
+</pre>
+
+<h3>実行結果</h3>
+<pre>
+リストは以下の要素を含みます: かきくけこ
+リストは以下の要素を含みません: たちつでと
+true
+</pre>
+
+<h3>解説</h3>
+・リストlstを作成します。文字列を格納するので、&lt;String&gt;を付けました。
+・lstに適当な要素を追加します。
+・文字列の配列searchTargetsを用意します。
+・forループでsearchTargetsの要素を順番に取り出します。
+・containsメソッドを用い、lstが特定の要素を含むか判定します。
+
+・続いてcontainsAllメソッドの挙動も確認します。
+・containsAllメソッドはコレクションを引数に取るので、別のリスト anotherList を用意します。
+・anotherListに適当な要素を追加します。
+・anotherListを引数とし、containsAllメソッドを呼びます。
+・lstはanotherListの要素を全て含むので、結果はtrueになりました。

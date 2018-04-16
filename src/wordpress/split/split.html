@@ -1,0 +1,52 @@
+<h2>Stringクラス、splitメソッドとは</h2>
+Stringクラス、splitメソッドは、ある文字列を指定した区切り文字列で分割するメソッドです。
+スペースやカンマで区切られた文字列を分割したり、複数行の文字列を1行ずつに分割したりするのに用います。
+
+<h2>splitメソッドの書き方</h2>
+以下のように、引数に区切り文字列を指定します。戻り値は文字列の配列です。
+<pre>
+String original = "a,b,c";
+String [] splitted = s.split(",");
+</pre>
+
+区切り文字列が含まれていない場合、戻り値は長さ1の配列で、配列の最初の要素が元の文字列です。
+
+<h2>実際に書いてみよう</h2>
+<h3>ソースコード</h3>
+<pre>
+public class SplitDemo {
+
+  public static void main(String[] args) {
+    String original = "alpha bravo charlie";
+    for(String splitted: original.split(" ")){
+      System.out.println(splitted);
+    }
+    
+    System.out.println("---");
+    
+    original = "delta123echo456foxtrot";
+    for(String splitted: original.split("\\d+")){
+      System.out.println(splitted);
+    }
+  }
+}
+</pre>
+
+<h3>実行結果</h3>
+<pre>
+alpha
+bravo
+charlie
+---
+delta
+echo
+foxtrot
+</pre>
+
+<h3>解説</h3>
+・一つ目の例では文字列として&quot;alpha bravo charlie&quot;を与えます。
+・スペース1個&quot;&nbsp;&quot;を区切り文字列とします。
+・alpha, bravo, charlieという3つの文字列に分割できました。
+・二つ目の例では文字列として&quot;delta123echo456foxtrot&quot;を与えます。
+・正規表現&quot;\\d+&quot;を区切り文字列とします。これは「1個以上の数字」を意味します。
+・delta, echo, foxtrotという3つの文字列に分割できました。

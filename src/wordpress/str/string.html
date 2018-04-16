@@ -1,0 +1,112 @@
+<h2>Stringクラスとは</h2>
+Stringクラスとは文字列を表すクラスです。
+文字列を結合、分割したり、特定の文字が含まれているか検索したりするメソッドが用意されています。
+
+<h2>Stringクラスの書き方</h2>
+以下のように宣言します。
+<pre>
+String s;
+</pre>
+
+宣言と初期化を同時にできます。
+<pre>
+String s = "文字列";
+</pre>
+
+<h2>実際に書いてみよう</h2>
+<h3>文字列の各種操作</h3>
+<h4>ソースコード</h4>
+<pre>
+// Stringクラスのインスタンスを作成する
+String a = "あいうえお";
+String b = "かきくけこ";
+System.out.println(a);
+System.out.println(b);
+    
+// 文字列を連結し、新しい文字列を作成する
+String c = a + b;
+System.out.println(c);
+
+// 文字列の長さを調べる
+System.out.println("文字列cの長さ: " + c.length());
+    
+// 文字列を比較する
+String d = "さしすせそ";
+String e = "さしすせそ";
+System.out.println("==演算子による比較: " + e == d);
+System.out.println("equalsメソッドによる比較: " + e.equals(d));
+</pre>
+
+<h4>実行結果</h4>
+<pre>
+あいうえお
+かきくけこ
+あいうえおかきくけこ
+文字列cの長さ: 10
+==演算子による比較: false
+equalsメソッドによる比較: true
+</pre>
+
+<h4>解説</h4>
+・+演算子で文字列を結合します。
+・文字列a「あいうえお」、文字列b「かきくけこ」を結合したので、文字列cは「あいうえおかきくけこ」になりました。
+
+・lengthメソッドで文字列の長さを調べます。
+・文字列cの長さは10です。
+
+・文字列の比較には注意が必要です。
+・文字列d、文字列eはともに「さしすせそ」という内容です。
+・==演算子は「同じオブジェクトか」という比較を行います。dとeは異なるオブジェクトなので、結果はfalseになりました。
+・equalsメソッドは文字列の内容を比較します。内容は同じなので、結果はtrueになりました。
+
+<h3>オブジェクトの文字列表現を実装する</h3>
+自作クラストを適当な文字列で表現したいケースがあります。
+そのような場合はそのクラスでtoStringメソッドを実装します。
+
+<h4>ソースコード</h4>
+<pre>
+package wordpress.str;
+
+public class ToStringDemo {
+  public static void main(String[] args) {
+    WithoutToString wo = new WithoutToString("ABC");
+    System.out.println(wo);
+    
+    WithToString w = new WithToString("DEF");
+    System.out.println(w);
+  }
+}
+
+class WithoutToString {
+  private String name;
+
+  public WithoutToString(String name) {
+    this.name = name;
+  }
+}
+
+class WithToString {
+  private String name;
+
+  public WithToString(String name) {
+    this.name = name;
+  }
+
+  public String toString() {
+    return "このオブジェクトの名前は" + name + "です";
+  }
+}
+</pre>
+
+<h4>実行結果</h4>
+<pre>
+wordpress.str.WithoutToString@18e8568
+このオブジェクトの名前はDEFです
+</pre>
+
+<h4>解説</h4>
+・WithoutToStringクラスではtoStringメソッドを実装しませんでした。
+・そのためインスタンスをコンソールに出力すると、&quot;WithoutToString@18e8568&quot; のような英数字の表現になりました。
+
+・WithToStringクラスではtoStringメソッドを実装しました。
+・同様に出力すると、toStringメソッドの実装に従った文字列表現になりました。

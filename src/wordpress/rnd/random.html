@@ -1,0 +1,57 @@
+<h2>Randomクラスとは</h2>
+Randomクラスは、疑似乱数(※)を生成するためのクラスです。
+科学分野のシミュレーションや、ゲームのキャラクターの動きなど、プログラミングの様々な分野で利用されています。
+
+(※)「真の乱数」との対比で用いられる用語。
+乱数のように見えるが、実際には一定の規則で生成されている数字。
+
+<h2>Randomクラスの使い方</h2>
+Randomクラスのインスタンスを初期化します。次にメソッドを呼びだし乱数を得ます。以下の例では0以上、100未満の乱数を得ます。
+<pre>
+Random random = new Random();
+int randomValue = random.nextInt(100);
+</pre>
+
+なお、コンストラクタに初期値(シード)を与えると、生成される疑似乱数列を固定できます。
+<pre>
+Random random = new Random(0);
+</pre>
+デバッグや数値実験で便利です。
+
+
+<h2>実際に書いてみよう</h2>
+じゃんけんの手をランダムに表示するプログラムです。
+
+<h3>ソースコード</h3>
+<pre>
+import java.util.Random;
+
+public class RandomDemo {
+
+  public static void main(String[] args) {
+    String[] hands = { "グー", "チョキ", "パー" };
+    Random r = new Random();
+    for(int i=0 ; i<5 ; i++) {
+      String hand = hands[r.nextInt(3)];
+      System.out.println(hand);
+    }
+  }
+
+}
+</pre>
+
+<h3>実行結果</h3>
+(注)乱数のため、実行ごとに異なる結果になります。
+<pre>
+グー
+パー
+グー
+チョキ
+グー
+</pre>
+
+<h3>解説</h3>
+・長さ3の配列でじゃんけんの手を用意します。
+・Randomクラスのインスタンスを作成します。
+・nextIntメソッドで0以上3未満の乱数を生成します。
+・乱数に対応するじゃんけんの手を表示します。

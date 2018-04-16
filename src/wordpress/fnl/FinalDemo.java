@@ -1,30 +1,31 @@
-package wordpress;
+package wordpress.fnl;
 
 public class FinalDemo {
 	public static void main(String [] args) {
 		final int a = 0; // 定数
 
-		// これはコンパイルエラーとなる。
+		// これはコンパイルエラーとなる�??
 		// a = 1;
 	}
 }
 
-// 継承できないクラス
+// 継承できな�?クラス
 final class MyFinalClass {
 }
 
-// これはコンパイルエラーとなる。
+// これはコンパイルエラーとなる�??
 // class MyClass extends MyFinalClass {
 // }
-
+/*
 class MyClass {
-	// 継承できないメソッド
+	// 継承できな�?メソ�?�?
 	public final void method() {
 	}
 }
 
 class MySubClass extends MyClass {
-	// これはコンパイルエラーとなる。
+	// これはコンパイルエラーとなる�??
 	// public void method() {
 	// }
 }
+*/

@@ -1,0 +1,116 @@
+<h2>abstractとは</h2>
+abstractとはJavaで抽象クラス、抽象メソッドを作成する時に用いるキーワードです。
+オブジェクト指向プログラミングで、共通の性質を持つクラスをまとめるために用います。
+
+例えば、図形描画アプリケーションで、円、長方形、三角形といったクラスを扱うとします。
+これらクラスは「クラス間で共通の性質」と「クラス間で異なる性質」を持ちます。
+・座標、向き、色といった状態
+・移動、回転、拡大縮小といった動作
+
+抽象クラス「図形」で共通の性質や動作を定義します。
+逆に種別ごとに異なるものを抽象メソッドとし、実装せずに残しておきます。
+
+具象クラス「円」「長方形」「三角形」で、種別ごとに異なるものを具象メソッドとして実装します。
+
+このような階層化により、プログラムの保守性が向上します。
+
+<h2>抽象クラス、抽象メソッドの書き方</h2>
+以下のようにクラス名、メソッド名の前にabstractキーワードを記述します。
+
+<pre>
+abstract class AbstractClass {
+  abstract public void method();
+}
+
+class ConcreteClass extends AbstractClass{
+  public void method(){
+    // 実装内容
+  }
+}
+</pre>
+
+・抽象クラスの抽象メソッドは宣言のみ行います。処理の中身を記述しません。
+・具象クラスでメソッドの中身を記述します。
+
+抽象クラスはインスタンス化できません。
+<pre>
+AbstractClass c = new AbstractClass(); // コンパイルエラー
+AbstractClass c = new ConcreteClass(); // 可
+ConcreteClass c = new ConcreteClass(); // 可
+</pre>
+
+<h2>実際に書いてみよう</h2>
+抽象クラス1つと、それを継承する具象クラス2つを作成します。
+抽象クラスで実装したメソッドにより、動作が変化することを確認します。
+
+<h3>ソースコード</h3>
+<pre>
+public class AbstractDemo {
+
+  public static void main(String[] args) {
+    // Catクラスをインスタンス化する
+    Animal cat = new Cat();
+    cat.animalCry();
+
+    // Dogクラスをインスタンス化する
+    Animal dog = new Dog();
+    dog.animalCry();
+  }
+
+}
+
+// 抽象クラス
+abstract class Animal {
+  private String name;
+
+  public Animal(String name) {
+    this.name = name;
+  }
+
+  public void animalCry() {
+    System.out.println(name + "の鳴き方: " + cry());
+  }
+
+  // 抽象メソッド
+  // 具象クラスからのみアクセスするため、protected修飾とする
+  abstract protected String cry();
+}
+
+// 具象クラス 1つ目
+class Cat extends Animal {
+  public Cat() {
+    super("猫");
+  }
+
+  // メソッドを実装する
+  protected String cry() {
+    return "ニャー";
+  }
+}
+
+//具象クラス 2つ目
+class Dog extends Animal {
+  public Dog() {
+    super("犬");
+  }
+
+  // メソッドを実装する
+  protected String cry() {
+    return "ワン";
+  }
+}
+</pre>
+
+<h3>実行結果</h3>
+<pre>
+猫の鳴き方: ニャー
+犬の鳴き方: ワン
+</pre>
+
+<h3>解説</h3>
+・抽象クラスAnimalを作成します。cryメソッドを抽象メソッドとします。
+・具象クラスCatを作成し、Animalクラスを継承します。cryメソッドを実装します。
+・同様に具象クラスDogを作成します。
+・Catクラス、Dogクラスのインスタンスを作成し、animalCryメソッドを呼びます。
+・具象メソッドの実装に従い、インスタンスの動作が変化します。
+・Animalクラスをインスタンス化できないことに注意します。

@@ -1,0 +1,67 @@
+<h2>instanceof演算子とは</h2>
+instanceof演算子は、あるオブジェクトの型を動的に判定するための演算子です。
+
+以下のような用途で用います。
+・オブジェクトが、あるクラスのインスタンスか
+・オブジェクトが、あるクラスの子クラスのインスタンスか
+・オブジェクトが、特定のインターフェースを実装したインスタンスか
+
+<h2>instanceof演算子の書き方</h2>
+記法は以下の通りです。
+<pre>
+オブジェクト instanceof 型
+</pre>
+
+オブジェクトが指定の型である場合、結果はtrueになります。
+そうでない場合、結果はfalseになります。
+
+<h2>実際に書いてみよう</h2>
+<h3>ソースコード</h3>
+<pre>
+public class InstanceOfDemo {
+  public static void main(String[] args) {
+    // 親クラスのインスタンスを作成する
+    ParentClass p = new ParentClass();
+    printInstance(p);
+
+    System.out.println("---");
+    
+    // 子クラスのインスタンスを作成する
+    ChildClass c = new ChildClass();
+    printInstance(c);
+  }
+  
+  private static void printInstance(Object obj) {
+    // ParentClassのインスタンスか判定する
+    if (obj instanceof ParentClass) {
+      System.out.println("オブジェクトはParentClassのインスタンスです");
+    }
+    
+    // ChildClassのインスタンスか判定する
+    if (obj instanceof ChildClass) {
+      System.out.println("オブジェクトはChildClassのインスタンスです");
+    }
+  }
+}
+
+// 親クラス
+class ParentClass {
+}
+
+// ParentClassを継承する子クラス
+class ChildClass extends ParentClass {
+}
+</pre>
+
+<h3>実行結果</h3>
+<pre>
+オブジェクトはParentClassのインスタンスです
+---
+オブジェクトはParentClassのインスタンスです
+オブジェクトはChildClassのインスタンスです
+</pre>
+
+<h3>解説</h3>
+・オブジェクトpはParentClassのインスタンスなので、判定の結果はtrueです。
+・一方、ChildClassのインスタンスではないので、判定の結果はfalseです。
+・オブジェクトcはChildClassのインスタンスで、ChildClassはParentClassを継承しています。よって判定の結果は両方ともtrueです。

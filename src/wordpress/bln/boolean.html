@@ -1,0 +1,79 @@
+<h2>boolean型とは</h2>
+boolean型とは真(true)、偽(false)を表す型です。
+
+以下のような目的で用います。
+・数値や文字列の比較結果を表す。
+・if文で分岐の方向を表す。
+・for文やwhile文でループを続行するか決定する。
+
+<h2>boolean型の使い方</h2>
+真を宣言する場合
+<pre>
+boolean b = true;
+</pre>
+
+偽を宣言する場合
+<pre>
+boolean b = true;
+</pre>
+
+<h2>実際に書いてみよう</h2>
+<h3>数値の比較</h3>
+<h4>ソースコード</h4>
+<pre>
+System.out.println("1 == 1 " + (1 == 1));
+System.out.println("1 == 2 " + (1 == 2));
+</pre>
+
+<h4>実行結果</h4>
+<pre>
+1 == 1 true
+1 == 2 false
+</pre>
+
+<h4>解説</h4>
+&quot;1 == 1&quot;の比較結果は真(true)です。
+&quot;1 == 2&quot;の比較結果は偽(false)です。
+
+<h3>if文での利用</h3>
+<h4>ソースコード</h4>
+<pre>
+int a = 0;
+int b = 1;
+if(a == b) {
+  System.out.println("trueの場合に実行");
+}
+else {
+  System.out.println("falseの場合に実行");
+}
+</pre>
+
+<h4>実行結果</h4>
+<pre>
+falseの場合に実行
+</pre>
+
+<h4>解説</h4>
+&quot;a == b&quot;の比較結果がfalseのため、else文を実行します。
+
+<h3>while文での利用</h3>
+<h4>ソースコード</h4>
+<pre>
+int i = 0;
+while(i < 10) {
+  System.out.print(i + " ");
+  i += 1;
+}
+</pre>
+
+<h4>実行結果</h4>
+<pre>
+0 1 2 3 4 5 6 7 8 9
+</pre>
+
+<h4>解説</h4>
+<ul>
+	<li>ループ1回目は変数iの値が0です。&quot;0 &lt; 10&quot;の比較のため、trueとなり、ループ内部を実行します。
+	<li>ループ2回目は変数iの値が1です。&quot;1 &lt; 10&quot;の比較のため、trueとなり、ループ内部を実行します。
+	<li>ループ11回目は変数iの値が10です。&quot;1 &lt; 10&quot;の比較のため、falseとなり、ループを終了します。
+</ul>
